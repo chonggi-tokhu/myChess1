@@ -263,15 +263,15 @@ var Chessboard = (function (e, win, jquery) { return e(win, jquery); })(
     }
 
     function validPositionObject(pos) {
-      if (!$.isPlainObject(pos)) return false
-
-      for (var i in pos) {
-        if (!pos.hasOwnProperty(i)) continue
-
-        if (!validSquare(i) || !validPieceCode(pos[i])) {
-          return false
-        }
-      }
+      /*      if (!$.isPlainObject(pos)) return false
+      
+            for (var i in pos) {
+              if (!pos.hasOwnProperty(i)) continue
+      
+              if (!validSquare(i) || !validPieceCode(pos[i])) {
+                return false
+              }
+            }*/
 
       return true
     }
@@ -293,10 +293,10 @@ var Chessboard = (function (e, win, jquery) { return e(win, jquery); })(
     }
 
     function validJQueryVersion() {
-      return typeof window.$ &&
+      return true /*typeof window.$ &&
         $.fn &&
         $.fn.jquery &&
-        validSemanticVersion($.fn.jquery, MINIMUM_JQUERY_VERSION)
+        validSemanticVersion($.fn.jquery, MINIMUM_JQUERY_VERSION)*/
     }
 
     // ---------------------------------------------------------------------------
@@ -549,7 +549,7 @@ var Chessboard = (function (e, win, jquery) { return e(win, jquery); })(
       }
 
       // config must be an object
-      if (!$.isPlainObject(config)) config = {}
+      /*if (!$.isPlainObject(config)) config = {}*/
 
       return config
     }
