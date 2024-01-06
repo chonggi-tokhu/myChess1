@@ -3,6 +3,12 @@ var Chessboard = (function (func, win) {
 })(function (window) {
 
     var COLUMNS = 'abcdefgh'.split('')
+    function isString(str) {
+        if (typeof str == "string") {
+            return true
+        }
+        return false
+    }
     function validFen(fen) {
         if (!isString(fen)) return false
 
