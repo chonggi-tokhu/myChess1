@@ -342,7 +342,7 @@ var Chessboard = (function (func, win) {
             console.log(fen);
             var draggable = (this.config.draggable) ? this.config.draggable : false;
             this.board.querySelectorAll("div.square").forEach(function (val, idx, arr) {
-                val.innerHTML = `<img src="${thisobj.config.piece(myfen[val.getAttribute("data-square")])}" class="piece" data-piece="${myfen[val.getAttribute("data-square")]}" draggable="${draggable}">`;
+                val.innerHTML = (!myfen[val.getAttribute("data-square")] || myfen[val.getAttribute("data-square")] == undefined) ? '' : `<img src="${thisobj.config.piece(myfen[val.getAttribute("data-square")])}" class="piece" data-piece="${myfen[val.getAttribute("data-square")]}" draggable="${draggable}">`;
                 val.addEventListener("drop", function (ev) {
                     var newel = ev.dataTransfer.getData("mysq");
                     var neweldata = ev.dataTransfer.getData("square");
