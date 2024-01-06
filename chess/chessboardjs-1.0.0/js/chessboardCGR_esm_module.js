@@ -309,7 +309,7 @@ var Chessboard = (function (func, win) {
     function myclass(el, config) {
         this.el = (typeof el == "string") ? document.getElementById(el) : (el instanceof HTMLElement) ? el : (function () { alert("aaaaaa"); return false })();
         this.config = config;
-        this.board = makehtml(this.el);
+        this.board = makehtml(this.config.position, this.el);
         this.position(this.config.position);
     }
     function isupperCase(string) {
