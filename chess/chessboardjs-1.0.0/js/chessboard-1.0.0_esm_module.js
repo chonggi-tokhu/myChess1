@@ -629,12 +629,12 @@ var Chessboard = (function (e, win, jquery) { return e(win, jquery); })(
       }
 
       // containerEl must be something that becomes a jQuery collection of size 1
-      var $container = (typeof containerElOrString == "string") ? window.document.querySelector('#' + containerElOrString) : containerElOrString;
+      var $container = (typeof containerElOrString == "string") ? [window.document.querySelector('#' + containerElOrString)] : containerElOrString;
       if ($container.length !== 1) {
         var errorMsg2 = 'Chessboard Error 1003: ' +
           'The first argument to Chessboard() must be the ID of a DOM node, ' +
           'an ID query selector, or a single DOM node.' +
-          '\n' + $container + '\n' +
+          '\n' + $container.length + '\n' +
           'Exiting' + ELLIPSIS
         window.alert(errorMsg2)
         return false
