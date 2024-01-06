@@ -31,7 +31,7 @@ config.prototype = {
         this.position = opts[0];
         return this;
     },
-    piece: "./chessboardjs-1.0.0/img/chesspieces/wikipedia/",
+    piece(piecename) { return "./chessboardjs-1.0.0/img/chesspieces/wikipedia/" + piecename + ".png"; },
     pieceAnimationTime: 800,
     onDragStart: function (source, piece, position, orientation) {
         // do not pick up pieces if the game is over
