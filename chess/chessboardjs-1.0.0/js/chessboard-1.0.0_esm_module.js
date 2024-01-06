@@ -6,8 +6,8 @@
 // https://github.com/oakmac/chessboardjs/blob/master/LICENSE.md
 
 // start anonymous scope
-var Chessboard = (function (e, win) { return e(win); })(
-  function (window) {
+var Chessboard = (function (e, win, jquery) { return e(win, jquery); })(
+  function (window, jquery) {
     'use strict'
 
     var $ = window['jQuery']
@@ -629,7 +629,7 @@ var Chessboard = (function (e, win) { return e(win); })(
       }
 
       // containerEl must be something that becomes a jQuery collection of size 1
-      var $container = $(containerElOrString)
+      var $container = window.document.querySelector(containerElOrString)
       if ($container.length !== 1) {
         var errorMsg2 = 'Chessboard Error 1003: ' +
           'The first argument to Chessboard() must be the ID of a DOM node, ' +
@@ -908,29 +908,28 @@ var Chessboard = (function (e, win) { return e(win); })(
 
       function animateSquareToSquare(src, dest, piece, completeFn) {
         // get information about the source and destination squares
-        var $srcSquare = $('#' + squareElsIds[src])
+        var $srcSquare = window.document.getElementById(squareElsIds[src]);
         var srcSquarePosition = $srcSquare.offset()
-        var $destSquare = $('#' + squareElsIds[dest])
+        var $destSquare = window.document.getElementById(squareElsIds[dest]);
         var destSquarePosition = $destSquare.offset()
 
         // create the animated piece and absolutely position it
         // over the source square
         var animatedPieceId = uuid()
-        $('body').append(buildPieceHTML(piece, true, animatedPieceId))
-        var $animatedPiece = $('#' + animatedPieceId)
-        $animatedPiece.css({
-          display: '',
-          position: 'absolute',
-          top: srcSquarePosition.top,
-          left: srcSquarePosition.left
-        })
+        document.getElementsByTagName('body')[0].appendChild(buildPieceHTML(piece, true, animatedPieceId))
+        var $animatedPiece = window.document.getElementById(animatedPieceId);
+        $animatedPiece.style.
+          display = '';
+        $animatedPiece.style.position = 'absolute';
+        $animatedPiece.style.top = srcSquarePosition.top;
+        $animatedPiece.style.left = srcSquarePosition.left
 
         // remove original piece from source square
-        $srcSquare.find('.' + CSS.piece).remove()
+        $srcSquare.querySelector('.' + CSS.piece).remove()
 
         function onFinishAnimation1() {
           // add the "real" piece to the destination square
-          $destSquare.append(buildPieceHTML(piece))
+          $destSquare.appendChild(buildPieceHTML(piece))
 
           // remove the animated piece
           $animatedPiece.remove()
@@ -950,26 +949,25 @@ var Chessboard = (function (e, win) { return e(win); })(
       }
 
       function animateSparePieceToSquare(piece, dest, completeFn) {
-        var srcOffset = $('#' + sparePiecesElsIds[piece]).offset()
-        var $destSquare = $('#' + squareElsIds[dest])
+        var srcOffset = window.document.getElementById(sparePiecesElsIds[piece]).offset();
+        var $destSquare = window.document.getElementById(squareElsIds[dest]);
         var destOffset = $destSquare.offset()
 
         // create the animate piece
         var pieceId = uuid()
-        $('body').append(buildPieceHTML(piece, true, pieceId))
-        var $animatedPiece = $('#' + pieceId)
-        $animatedPiece.css({
-          display: '',
-          position: 'absolute',
-          left: srcOffset.left,
-          top: srcOffset.top
-        })
+        window.document.getElementsByTagName('body')[0].appendChild(buildPieceHTML(piece, true, pieceId))
+        var $animatedPiece = window.document.getElementById(pieceId);
+        $animatedPiece.style.
+          display = '',
+          $animatedPiece.style.position = 'absolute',
+          $animatedPiece.style.left = srcOffset.left,
+          $animatedPiece.style.top = srcOffset.top
 
         // on complete
         function onFinishAnimation2() {
           // add the "real" piece to the destination square
-          $destSquare.find('.' + CSS.piece).remove()
-          $destSquare.append(buildPieceHTML(piece))
+          $destSquare.querySelector('.' + CSS.piece).remove()
+          $destSquare.appendChild(buildPieceHTML(piece))
 
           // remove the animated piece
           $animatedPiece.remove()
@@ -1011,15 +1009,25 @@ var Chessboard = (function (e, win) { return e(win); })(
 
           // clear a piece
           if (animation.type === 'clear') {
-            $('#' + squareElsIds[animation.square] + ' .' + CSS.piece)
-              .fadeOut(config.trashSpeed, onFinishAnimation3)
-
+            document.getElementById(squareElsIds[animation.square] + ' .' + CSS.piece)
+              .style.setProperty('animation', `fadeIn ${config.trashSpeed * 1000}s 1`)
+            window.setTimeout(function () {
+              document.getElementById(squareElsIds[animation.square])
+              querySelector('.' + CSS.piece)
+                .style.setProperty('animation', '')
+            }, 1000);
             // add a piece with no spare pieces - fade the piece onto the square
           } else if (animation.type === 'add' && !config.sparePieces) {
-            $('#' + squareElsIds[animation.square])
-              .append(buildPieceHTML(animation.piece, true))
-              .find('.' + CSS.piece)
-              .fadeIn(config.appearSpeed, onFinishAnimation3)
+            document.getElementById(squareElsIds[animation.square])
+              .appendChild(buildPieceHTML(animation.piece, true))
+            querySelector('.' + CSS.piece)
+              .style.setProperty('animation', `fadeIn ${config.appearSpeed * 1000} 1`);
+            window.setTimeout(function () {
+              document.getElementById(squareElsIds[animation.square])
+                .appendChild(buildPieceHTML(animation.piece, true))
+              querySelector('.' + CSS.piece)
+                .style.setProperty('animation', '')
+            }, 1000);
 
             // add a piece with spare pieces - animate from the spares
           } else if (animation.type === 'add' && config.sparePieces) {
@@ -1110,13 +1118,13 @@ var Chessboard = (function (e, win) { return e(win); })(
 
       function drawPositionInstant() {
         // clear the board
-        $board.find('.' + CSS.piece).remove()
+        $board.querySelector('.' + CSS.piece).remove()
 
         // add the pieces
         for (var i in currentPosition) {
           if (!currentPosition.hasOwnProperty(i)) continue
 
-          $('#' + squareElsIds[i]).append(buildPieceHTML(currentPosition[i]))
+          document.getElementById(squareElsIds[i]).appendChild(buildPieceHTML(currentPosition[i]));
         }
       }
 
@@ -1176,14 +1184,14 @@ var Chessboard = (function (e, win) { return e(win); })(
         for (var i in squareElsIds) {
           if (!squareElsIds.hasOwnProperty(i)) continue
 
-          squareElsOffsets[i] = $('#' + squareElsIds[i]).offset()
+          squareElsOffsets[i] = document.getElementById(squareElsIds[i]).offset();
         }
       }
 
       function removeSquareHighlights() {
         $board
-          .find('.' + CSS.square)
-          .removeClass(CSS.highlight1 + ' ' + CSS.highlight2)
+          .querySelector('.' + CSS.square)
+          .classList.remove(CSS.highlight1 + ' ' + CSS.highlight2)
       }
 
       function snapbackDraggedPiece() {
@@ -1198,7 +1206,7 @@ var Chessboard = (function (e, win) { return e(win); })(
         // animation complete
         function complete() {
           drawPositionInstant()
-          $draggedPiece.css('display', 'none')
+          $draggedPiece.style.setProperty('display', 'none')
 
           // run their onSnapbackEnd function
           if (isFunction(config.onSnapbackEnd)) {
@@ -1212,7 +1220,7 @@ var Chessboard = (function (e, win) { return e(win); })(
         }
 
         // get source square position
-        var sourceSquarePosition = $('#' + squareElsIds[draggedPieceSource]).offset()
+        var sourceSquarePosition = document.getElementById(squareElsIds[draggedPieceSource]).offset();
 
         // animate the piece to the target square
         var opts = {
@@ -1237,8 +1245,11 @@ var Chessboard = (function (e, win) { return e(win); })(
         drawPositionInstant()
 
         // hide the dragged piece
-        $draggedPiece.fadeOut(config.trashSpeed)
-
+        $draggedPiece.style.setProperty('animation', `fadeOut ${config.trashSpeed * 1000}s 1`)
+        window.setTimeout(function () {
+          $draggedPiece
+            .style.setProperty('animation', '')
+        }, 1000);
         // set state
         isDragging = false
       }
@@ -1253,12 +1264,12 @@ var Chessboard = (function (e, win) { return e(win); })(
         setCurrentPosition(newPosition)
 
         // get target square information
-        var targetSquarePosition = $('#' + squareElsIds[square]).offset()
+        var targetSquarePosition = document.getElementById(squareElsIds[square]).offset();
 
         // animation complete
         function onAnimationComplete() {
           drawPositionInstant()
-          $draggedPiece.css('display', 'none')
+          $draggedPiece.setProperty('display', 'none')
 
           // execute their onSnapEnd function
           if (isFunction(config.onSnapEnd)) {
@@ -1301,28 +1312,29 @@ var Chessboard = (function (e, win) { return e(win); })(
         captureSquareOffsets()
 
         // create the dragged piece
-        $draggedPiece.attr('src', buildPieceImgSrc(piece)).css({
-          display: '',
-          position: 'absolute',
-          left: x - squareSize / 2,
-          top: y - squareSize / 2
-        })
+        $draggedPiece.setAttribute('src', buildPieceImgSrc(piece))
+        $draggedPiece.style.setProperty(
+          'display', '');
+        $draggedPiece.style.setProperty('position', 'absolute');
+        $draggedPiece.style.setProperty('left', x - squareSize / 2)
+        $draggedPiece.style.setProperty('top', y - squareSize / 2
+        )
 
         if (source !== 'spare') {
           // highlight the source square and hide the piece
-          $('#' + squareElsIds[source])
+          document.getElementById(squareElsIds[source])
             .addClass(CSS.highlight1)
-            .find('.' + CSS.piece)
-            .css('display', 'none')
+            .querySelector('.' + CSS.piece)
+            .style.setProperty('display', 'none')
         }
       }
 
       function updateDraggedPiece(x, y) {
         // put the dragged piece over the mouse cursor
-        $draggedPiece.css({
-          left: x - squareSize / 2,
-          top: y - squareSize / 2
-        })
+        $draggedPiece.style.setProperty(
+          "left", x - squareSize / 2);
+        $draggedPiece.style.setProperty("top", y - squareSize / 2
+        )
 
         // get location
         var location = isXYOnSquare(x, y)
@@ -1332,12 +1344,12 @@ var Chessboard = (function (e, win) { return e(win); })(
 
         // remove highlight from previous square
         if (validSquare(draggedPieceLocation)) {
-          $('#' + squareElsIds[draggedPieceLocation]).removeClass(CSS.highlight2)
+          document.getElementById(squareElsIds[draggedPieceLocation]).classList.remove(CSS.highlight2);
         }
 
         // add highlight to new square
         if (validSquare(location)) {
-          $('#' + squareElsIds[location]).addClass(CSS.highlight2)
+          document.getElementById(squareElsIds[location]).addClass(CSS.highlight2);
         }
 
         // run onDragMove
@@ -1557,19 +1569,19 @@ var Chessboard = (function (e, win) { return e(win); })(
         squareSize = calculateSquareSize()
 
         // set board width
-        $board.css('width', squareSize * 8 + 'px')
+        $board.style.setProperty('width', squareSize * 8 + 'px')
 
         // set drag piece size
-        $draggedPiece.css({
-          height: squareSize,
-          width: squareSize
-        })
+        $draggedPiece.style.setProperty(
+          'height', squareSize);
+        $draggedPiece.style.setProperty('width', squareSize)
+
 
         // spare pieces
         if (config.sparePieces) {
           $container
-            .find('.' + CSS.sparePieces)
-            .css('paddingLeft', squareSize + boardBorderSize + 'px')
+            .querySelector('.' + CSS.sparePieces)
+            .style.setProperty('paddingLeft', squareSize + boardBorderSize + 'px')
         }
 
         // redraw the board
@@ -1594,7 +1606,7 @@ var Chessboard = (function (e, win) { return e(win); })(
         if (!config.draggable) return
 
         // do nothing if there is no piece on this square
-        var square = $(this).attr('data-square')
+        var square = this.getAttribute('data-square')
         if (!validSquare(square)) return
         if (!currentPosition.hasOwnProperty(square)) return
 
@@ -1606,7 +1618,7 @@ var Chessboard = (function (e, win) { return e(win); })(
         if (!config.draggable) return
 
         // do nothing if there is no piece on this square
-        var square = $(this).attr('data-square')
+        var square = this.attr('data-square')
         if (!validSquare(square)) return
         if (!currentPosition.hasOwnProperty(square)) return
 
@@ -1623,7 +1635,7 @@ var Chessboard = (function (e, win) { return e(win); })(
         // do nothing if sparePieces is not enabled
         if (!config.sparePieces) return
 
-        var piece = $(this).attr('data-piece')
+        var piece = this.getAttribute('data-piece')
 
         beginDraggingPiece('spare', piece, evt.pageX, evt.pageY)
       }
@@ -1632,7 +1644,7 @@ var Chessboard = (function (e, win) { return e(win); })(
         // do nothing if sparePieces is not enabled
         if (!config.sparePieces) return
 
-        var piece = $(this).attr('data-piece')
+        var piece = this.getAttribute('data-piece')
 
         e = e.originalEvent
         beginDraggingPiece(
@@ -1694,7 +1706,7 @@ var Chessboard = (function (e, win) { return e(win); })(
         if (!isFunction(config.onMouseoverSquare)) return
 
         // get the square
-        var square = $(evt.currentTarget).attr('data-square')
+        var square = evt.currentTarget.getAttribute('data-square')
 
         // NOTE: this should never happen; defensive
         if (!validSquare(square)) return
@@ -1718,7 +1730,7 @@ var Chessboard = (function (e, win) { return e(win); })(
         if (!isFunction(config.onMouseoutSquare)) return
 
         // get the square
-        var square = $(evt.currentTarget).attr('data-square')
+        var square = evt.currentTarget.getAttribute('data-square')
 
         // NOTE: this should never happen; defensive
         if (!validSquare(square)) return
@@ -1739,30 +1751,42 @@ var Chessboard = (function (e, win) { return e(win); })(
 
       function addEvents() {
         // prevent "image drag"
-        $('body').on('mousedown mousemove', '.' + CSS.piece, stopDefault)
+        var areyoumovingpiece = false;
+        document.getElementsByTagName('body')[0].querySelectorAll('.' + CSS.piece).forEach(function (el) {
+          el.addEventListener('mousedown', function (ev) {
+            areyoumovingpiece = true;
+          });
+        });
+        document.getElementsByTagName("body")[0].querySelectorAll('.' + CSS.piece).forEach(function (el) {
+          el.addEventListener('mousemove', function (ev) { if (areyoumovingpiece == true) { stopDefault(ev) } });
+        });
 
         // mouse drag pieces
-        $board.on('mousedown', '.' + CSS.square, mousedownSquare)
-        $container.on('mousedown', '.' + CSS.sparePieces + ' .' + CSS.piece, mousedownSparePiece)
+        $board.querySelectorAll('.' + CSS.square).forEach(function (el) {
+          el.addEventListener('mousedown', mousedownSquare);
+        })
+        $container.querySelectorAll('.' + CSS.sparePieces + ' .' + CSS.piece).forEach(function (el) { el.addEventListener('mousedown'), mousedownSparePiece })
 
         // mouse enter / leave square
-        $board
-          .on('mouseenter', '.' + CSS.square, mouseenterSquare)
-          .on('mouseleave', '.' + CSS.square, mouseleaveSquare)
+        $board.querySelectorAll('.' + CSS.square).forEach(function (el) {
+          el.addEventListener('mouseenter', mouseenterSquare);
+          el.addEventListener('mouseleave', mouseleaveSquare);
+        });
+
+
 
         // piece drag
-        var $window = $(window)
-        $window
-          .on('mousemove', throttledMousemoveWindow)
-          .on('mouseup', mouseupWindow)
+        var $window = window;
+        $window.addEventListener('mousemove', throttledMousemoveWindow)
+        $window.addEventListener('mouseup', mouseupWindow)
 
         // touch drag pieces
         if (isTouchDevice()) {
-          $board.on('touchstart', '.' + CSS.square, touchstartSquare)
-          $container.on('touchstart', '.' + CSS.sparePieces + ' .' + CSS.piece, touchstartSparePiece)
+          $board.querySelectorAll('.' + CSS.square).forEach(function (el) { el.addEventListener('touchstart', touchstartSquare) });
+          $container.querySelectorAll('.' + CSS.sparePieces + ' .' + CSS.piece).forEach(function (el) { el.addEventListener('touchstart', touchstartSparePiece) });
           $window
-            .on('touchmove', throttledTouchmoveWindow)
-            .on('touchend', touchendWindow)
+            .addEventListener('touchmove', throttledTouchmoveWindow)
+            .addEventListener('touchend', touchendWindow)
         }
       }
 
@@ -1771,24 +1795,24 @@ var Chessboard = (function (e, win) { return e(win); })(
         createElIds()
 
         // build board and save it in memory
-        $container.html(buildContainerHTML(config.sparePieces))
-        $board = $container.find('.' + CSS.board)
+        $container.innerHTML = (buildContainerHTML(config.sparePieces))
+        $board = $container.querySelector('.' + CSS.board)
 
         if (config.sparePieces) {
-          $sparePiecesTop = $container.find('.' + CSS.sparePiecesTop)
-          $sparePiecesBottom = $container.find('.' + CSS.sparePiecesBottom)
+          $sparePiecesTop = $container.querySelector('.' + CSS.sparePiecesTop)
+          $sparePiecesBottom = $container.querySelector('.' + CSS.sparePiecesBottom)
         }
 
         // create the drag piece
         var draggedPieceId = uuid()
-        $('body').append(buildPieceHTML('wP', true, draggedPieceId))
-        $draggedPiece = $('#' + draggedPieceId)
+        window.document.getElementsByTagName('body')[0].appendChild(buildPieceHTML('wP', true, draggedPieceId))
+        $draggedPiece = window.document.querySelector('#' + draggedPieceId);
 
         // TODO: need to remove this dragged piece element if the board is no
         // longer in the DOM
 
         // get the border size
-        boardBorderSize = parseInt($board.css('borderLeftWidth'), 10)
+        boardBorderSize = parseInt($board.style.getPropertyValue('borderLeftWidth'), 10)
 
         // set the size and draw the board
         widget.resize()
