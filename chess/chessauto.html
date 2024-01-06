@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mychess</title>
+    <link rel="stylesheet" href="./chessboardjs-1.0.0/css/chessboard-1.0.0.min.css">
+    <style>
+        :root {
+            --displaywidth: 100px;
+        }
+
+        .oneOfMyBoards {
+            width: calc(var(--displaywidth)*0.4);
+        }
+
+        .oneOfMyBoards .board-b72b1 {
+            width: inherit !important;
+        }
+    </style>
+    <chessopt chessinmodule="false"></chessopt>
+</head>
+
+<body>
+    <div class="body">
+        <div class="chessboards">
+            <div class="oneOfMyBoards" position="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"></div>
+            <div class="oneOfMyBoards" position="1n1qk1n1/pppppppp/8/8/8/8/PPPPPPP1/RNB1KB1R w K - 0 1"></div>
+        </div>
+    </div>
+    <script src="./chessboardjs-1.0.0/js/chessboard-1.0.0.min.js"></script>
+    <script src="./chess.js"></script>
+    <!--<script src="./chessauto.js" id="scriptSRCchess"></script>
+    <script>
+        if (document.head.getElementsByTagName("chessopt")[0].getAttribute("chessinmodule") == "true") {
+            var myScriptTag = document.getElementById("scriptSRCchess");
+            myScriptTag.setAttribute("src", "./chessauto_module.js");
+            myScriptTag.setAttribute("type", "module");
+            myScriptTag.innerHTML = `import { docChess } from "./chessauto_module.js"`;
+            myScriptTag.innerHTML += `window['docChess']=docChess;`;
+        }
+        window.addEventListener("DOMContentLoaded",function(){
+            window.chessauto
+        })
+    </script>-->
+    <script type="module">
+        import { docChess } from "./chessauto_module.js";
+        globalThis.chessauto = docChess;
+        var onCompleteLoadingBoard = window.chessauto.CompleteLoadingBoard;
+        window.addEventListener("CompleteLoadingBoard", function (eventparam) {
+            if (eventparam.detail.complete == false) {
+                var boardson = chessauto.autochess('oneOfMyBoards', '.', document.body, new chessauto.config());
+                onCompleteLoadingBoard.detail.complete = true;
+            }
+        });
+        window.addEventListener("load", function (eventparam) {
+            document.querySelector(':root').style.setProperty("--displaywidth", window.innerWidth);
+            window.dispatchEvent(onCompleteLoadingBoard);
+        });
+    </script>
+</body>
+
+</html>
