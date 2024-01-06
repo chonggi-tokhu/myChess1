@@ -139,161 +139,161 @@ var Chessboard = (function (func, win) {
         var myfen = fenToObj(fen);
         if (boardel instanceof HTMLElement) {
             boardel.innerHTML = `<div class="Chessboard">
-            <div>
-            <div class="square light" data-square="a8">
+            <div class="rank">
+            <div class="square file light" data-square="a8">
             </div>
-            <div class="square dark" data-square="b8">
+            <div class="square file dark" data-square="b8">
             </div>
-            <div class="square light" data-square="c8">
+            <div class="square file light" data-square="c8">
             </div>
-            <div class="square dark" data-square="d8">
+            <div class="square file dark" data-square="d8">
             </div>
-            <div class="square light" data-square="e8">
+            <div class="square file light" data-square="e8">
             </div>
-            <div class="square dark" data-square="f8">
+            <div class="square file dark" data-square="f8">
             </div>
-            <div class="square light" data-square="g8">
+            <div class="square file light" data-square="g8">
             </div>
-            <div class="square dark" data-square="h8">
-            </div>
-
-
-
+            <div class="square file dark" data-square="h8">
             </div>
 
 
-            <div>
-            <div class="square dark" data-square="a7">
+
             </div>
-            <div class="square light" data-square="b7">
+
+
+            <div class="rank">
+            <div class="square file dark" data-square="a7">
             </div>
-            <div class="square dark" data-square="c7">
+            <div class="square file light" data-square="b7">
             </div>
-            <div class="square light" data-square="d7">
+            <div class="square file dark" data-square="c7">
             </div>
-            <div class="square dark" data-square="e7">
+            <div class="square file light" data-square="d7">
             </div>
-            <div class="square light" data-square="f7">
+            <div class="square file dark" data-square="e7">
             </div>
-            <div class="square dark" data-square="g7">
+            <div class="square file light" data-square="f7">
             </div>
-            <div class="square light" data-square="h7">
+            <div class="square file dark" data-square="g7">
+            </div>
+            <div class="square file light" data-square="h7">
             </div>
             </div>
 
 
-            <div>
-            <div class="square light" data-square="a6">
+            <div class="rank">
+            <div class="square file light" data-square="a6">
             </div>
-            <div class="square dark" data-square="b6">
+            <div class="square file dark" data-square="b6">
             </div>
-            <div class="square light" data-square="c6">
+            <div class="square file light" data-square="c6">
             </div>
-            <div class="square dark" data-square="d6">
+            <div class="square file dark" data-square="d6">
             </div>
-            <div class="square light" data-square="e6">
+            <div class="square file light" data-square="e6">
             </div>
-            <div class="square dark" data-square="f6">
+            <div class="square file dark" data-square="f6">
             </div>
-            <div class="square light" data-square="g6">
+            <div class="square file light" data-square="g6">
             </div>
-            <div class="square dark" data-square="h6">
+            <div class="square file dark" data-square="h6">
             </div>
             </div>
             
 
-            <div>
-            <div class="square dark" data-square="a5">
+            <div class="rank">
+            <div class="square file dark" data-square="a5">
             </div>
-            <div class="square light" data-square="b5">
+            <div class="square file light" data-square="b5">
             </div>
-            <div class="square dark" data-square="c5">
+            <div class="square file dark" data-square="c5">
             </div>
-            <div class="square light" data-square="d5">
+            <div class="square file light" data-square="d5">
             </div>
-            <div class="square dark" data-square="e5">
+            <div class="square file dark" data-square="e5">
             </div>
-            <div class="square light" data-square="f5">
+            <div class="square file light" data-square="f5">
             </div>
-            <div class="square dark" data-square="g5">
+            <div class="square file dark" data-square="g5">
             </div>
-            <div class="square light" data-square="h5">
-            </div>
-            </div>
-
-            <div>
-            <div class="square light" data-square="a4">
-            </div>
-            <div class="square dark" data-square="b4">
-            </div>
-            <div class="square light" data-square="c4">
-            </div>
-            <div class="square dark" data-square="d4">
-            </div>
-            <div class="square light" data-square="e4">
-            </div>
-            <div class="square dark" data-square="f4">
-            </div>
-            <div class="square light" data-square="g4">
-            </div>
-            <div class="square dark" data-square="h4">
+            <div class="square file light" data-square="h5">
             </div>
             </div>
 
-            <div>
-            <div class="square dark" data-square="a3">
+            <div class="rank">
+            <div class="square file light" data-square="a4">
             </div>
-            <div class="square light" data-square="b3">
+            <div class="square file dark" data-square="b4">
             </div>
-            <div class="square dark" data-square="c3">
+            <div class="square file light" data-square="c4">
             </div>
-            <div class="square light" data-square="d3">
+            <div class="square file dark" data-square="d4">
             </div>
-            <div class="square dark" data-square="e3">
+            <div class="square file light" data-square="e4">
             </div>
-            <div class="square light" data-square="f3">
+            <div class="square file dark" data-square="f4">
             </div>
-            <div class="square dark" data-square="g3">
+            <div class="square file light" data-square="g4">
             </div>
-            <div class="square light" data-square="h3">
-            </div>
-            </div>
-
-            <div>
-            <div class="square light" data-square="a2">
-            </div>
-            <div class="square dark" data-square="b2">
-            </div>
-            <div class="square light" data-square="c2">
-            </div>
-            <div class="square dark" data-square="d2">
-            </div>
-            <div class="square light" data-square="e2">
-            </div>
-            <div class="square dark" data-square="f2">
-            </div>
-            <div class="square light" data-square="g2">
-            </div>
-            <div class="square dark" data-square="h2">
+            <div class="square file dark" data-square="h4">
             </div>
             </div>
 
-            <div>
-            <div class="square dark" data-square="a1">
+            <div class="rank">
+            <div class="square file dark" data-square="a3">
             </div>
-            <div class="square light" data-square="b1">
+            <div class="square file light" data-square="b3">
             </div>
-            <div class="square dark" data-square="c1">
+            <div class="square file dark" data-square="c3">
             </div>
-            <div class="square light" data-square="d1">
+            <div class="square file light" data-square="d3">
             </div>
-            <div class="square dark" data-square="e1">
+            <div class="square file dark" data-square="e3">
             </div>
-            <div class="square light" data-square="f1">
+            <div class="square file light" data-square="f3">
             </div>
-            <div class="square dark" data-square="g1">
+            <div class="square file dark" data-square="g3">
             </div>
-            <div class="square light" data-square="h1">
+            <div class="square file light" data-square="h3">
+            </div>
+            </div>
+
+            <div class="rank">
+            <div class="square file light" data-square="a2">
+            </div>
+            <div class="square file dark" data-square="b2">
+            </div>
+            <div class="square file light" data-square="c2">
+            </div>
+            <div class="square file dark" data-square="d2">
+            </div>
+            <div class="square file light" data-square="e2">
+            </div>
+            <div class="square file dark" data-square="f2">
+            </div>
+            <div class="square file light" data-square="g2">
+            </div>
+            <div class="square file dark" data-square="h2">
+            </div>
+            </div>
+
+            <div class="rank">
+            <div class="square file dark" data-square="a1">
+            </div>
+            <div class="square file light" data-square="b1">
+            </div>
+            <div class="square file dark" data-square="c1">
+            </div>
+            <div class="square file light" data-square="d1">
+            </div>
+            <div class="square file dark" data-square="e1">
+            </div>
+            <div class="square file light" data-square="f1">
+            </div>
+            <div class="square file dark" data-square="g1">
+            </div>
+            <div class="square file light" data-square="h1">
             </div>
             </div>
             </div>`;
@@ -323,7 +323,7 @@ var Chessboard = (function (func, win) {
             var myfen = fenToObj(fen);
             var draggable = (this.config.draggable) ? this.config.draggable : false;
             this.board.querySelectorAll("div.square").forEach(function (val, idx, arr) {
-                val.innerHTML = `<img src="${myfen[val.getAttribute("data-square")]}" class="piece" data-piece="${myfen[val.getAttribute("data-square")]}" draggable="${draggable}">`;
+                val.innerHTML = `<img src="${thisobj.config.piece(myfen[val.getAttribute("data-square")])}" class="piece" data-piece="${myfen[val.getAttribute("data-square")]}" draggable="${draggable}">`;
                 val.addEventListener("drop", function (ev) {
                     var newel = ev.dataTransfer.getData("mysq");
                     var neweldata = ev.dataTransfer.getData("square");

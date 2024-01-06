@@ -31,6 +31,8 @@ config.prototype = {
         this.position = opts[0];
         return this;
     },
+    piece: "./chessboardjs-1.0.0/img/chesspieces/wikipedia/",
+    pieceAnimationTime: 800,
     onDragStart: function (source, piece, position, orientation) {
         // do not pick up pieces if the game is over
         if (this.chess.game_over()) return false;

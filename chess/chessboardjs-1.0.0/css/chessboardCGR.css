@@ -1,0 +1,25 @@
+:root {
+    --displaywidth: 100px;
+}
+
+.Chessboard div.rank div.square {
+    width: calc(var(--displaywidth)*0.3);
+    height: calc(var(--displaywidth)*0.3);
+}
+
+.Chessboard div.rank div.square.light {
+    background: #bef;
+}
+
+.Chessboard div.rank div.square.dark {
+    background: radial-gradient(#bef 15%, #eee 25%, brown 35%, #121212);
+}
+
+.Chessboard div.rank div.square img.piece {
+    width: calc(var(--displaywidth)*0.22);
+    height: calc(var(--displaywidth)*0.22);
+}
+
+.Chessboard div.rank {
+    display: flex;
+}
