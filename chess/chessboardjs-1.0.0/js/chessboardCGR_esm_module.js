@@ -115,13 +115,14 @@ var Chessboard = (function (func, win) {
         }
         return rtv;
     }
+
     HTMLElement.prototype.getElementsByAttrValue = function (attr, value) {
         var rtv = [];
         for (var i = 0; i < this.children.length; i++) {
-            if (this.children[i].getAttribute(attr) == value) {
-                rtv[rtv.length] = this.children[i];
-                if (this.children[i].children.length > 0) {
-                    rtv[rtv.length] = this.children[i].getElementsByAttrValue(attr, value);
+            if (this.children.item(i).getAttribute(attr) == value) {
+                rtv[rtv.length] = this.children(i);
+                if (this.children(i).children.length > 0) {
+                    rtv[rtv.length] = this.children(i).getElementsByAttrValue(attr, value);
                 }
             }
         }
@@ -131,10 +132,10 @@ var Chessboard = (function (func, win) {
     Document.prototype.getElementsByAttrValue = function (attr, value) {
         var rtv = [];
         for (var i = 0; i < this.children.length; i++) {
-            if (this.children[i].getAttribute(attr) == value) {
-                rtv[rtv.length] = this.children[i];
-                if (this.children[i].children.length > 0) {
-                    rtv[rtv.length] = this.children[i].getElementsByAttrValue(attr, value);
+            if (this.children.item(i).getAttribute(attr) == value) {
+                rtv[rtv.length] = this.children(i);
+                if (this.children(i).children.length > 0) {
+                    rtv[rtv.length] = this.children(i).getElementsByAttrValue(attr, value);
                 }
             }
         }
