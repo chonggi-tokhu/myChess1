@@ -101,23 +101,45 @@ var Chessboard = (function (func, win) {
 
         return fen
     }
+    function simplearray(arr) {
+        var rtv = [];
+        console.log(arr);
+        for (var i = 0; i < arr.length; i++) {
+            rtv[rtv.length] = arr[i];
+            if (arr[i].length != 0) {
+                var aderr = simplearray(arr[i]);
+                for (var ijk = 0; ijk < aderr.length; ijk++) {
+                    rtv[rtv.length] = aderr[ijk];
+                }
+            }
+        }
+        return rtv;
+    }
     HTMLElement.prototype.getElementsByAttrValue = function (attr, value) {
         var rtv = [];
         for (var i = 0; i < this.children.length; i++) {
             if (this.children[i].getAttribute(attr) == value) {
                 rtv[rtv.length] = this.children[i];
+                if (this.children[i].children.length > 0) {
+                    rtv[rtv.length] = this.children[i].getElementsByAttrValue(attr, value);
+                }
             }
         }
-        return rtv;
+        var rtv2 = simplearray(rtv);
+        return rtv2;
     }
     Document.prototype.getElementsByAttrValue = function (attr, value) {
         var rtv = [];
         for (var i = 0; i < this.children.length; i++) {
             if (this.children[i].getAttribute(attr) == value) {
                 rtv[rtv.length] = this.children[i];
+                if (this.children[i].children.length > 0) {
+                    rtv[rtv.length] = this.children[i].getElementsByAttrValue(attr, value);
+                }
             }
         }
-        return rtv;
+        var rtv2 = simplearray(rtv);
+        return rtv2;
     }
     var document = new Document();
     function fenToPieceCode(piece) {
