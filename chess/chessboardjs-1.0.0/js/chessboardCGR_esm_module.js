@@ -339,6 +339,7 @@ var Chessboard = (function (func, win) {
         position(fen) {
             var thisobj = this;
             var myfen = fenToObj(fen);
+            console.log(myfen);
             var draggable = (this.config.draggable) ? this.config.draggable : false;
             this.board.querySelectorAll("div.square").forEach(function (val, idx, arr) {
                 val.innerHTML = `<img src="${thisobj.config.piece(myfen[val.getAttribute("data-square")])}" class="piece" data-piece="${myfen[val.getAttribute("data-square")]}" draggable="${draggable}">`;
