@@ -3,8 +3,9 @@
 }
 
 .Chessboard div.rank div.square {
-    width: calc(var(--displaywidth)*0.3);
-    height: calc(var(--displaywidth)*0.3);
+    display: block;
+    width: calc(var(--displaywidth)*0.3) !important;
+    height: calc(var(--displaywidth)*0.3) !important;
 }
 
 .Chessboard div.rank div.square.light {

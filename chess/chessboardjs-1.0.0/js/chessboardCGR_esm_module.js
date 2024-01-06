@@ -108,6 +108,7 @@ var Chessboard = (function (func, win) {
                 rtv[rtv.length] = this.children[i];
             }
         }
+        return rtv;
     }
     Document.prototype.getElementsByAttrValue = function (attr, value) {
         var rtv = [];
@@ -116,6 +117,7 @@ var Chessboard = (function (func, win) {
                 rtv[rtv.length] = this.children[i];
             }
         }
+        return rtv;
     }
     var document = new Document();
     function fenToPieceCode(piece) {
