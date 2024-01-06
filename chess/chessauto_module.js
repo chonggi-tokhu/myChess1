@@ -63,7 +63,7 @@ config.prototype = {
 var configobj = {
     piece(piecename) { return "./chessboardjs-1.0.0/img/chesspieces/wikipedia/" + piecename + ".png"; },
     pieceAnimationTime: 800,
-    position: 'start',
+    position: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
     draggable: true,
 }
 class ChessboardGame {
