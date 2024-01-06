@@ -306,6 +306,16 @@ var Chessboard = (function (func, win) {
         }
         return boardel;
     }
+    function expandFenEmptySquares(fen) {
+        return fen.replace(/8/g, '11111111')
+            .replace(/7/g, '1111111')
+            .replace(/6/g, '111111')
+            .replace(/5/g, '11111')
+            .replace(/4/g, '1111')
+            .replace(/3/g, '111')
+            .replace(/2/g, '11')
+    }
+
     function myclass(el, config) {
         this.el = (typeof el == "string") ? document.getElementById(el) : (el instanceof HTMLElement) ? el : (function () { alert("aaaaaa"); return false })();
         this.config = config;
