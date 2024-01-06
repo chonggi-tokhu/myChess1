@@ -371,9 +371,6 @@ var Chessboard = (function (func, win) {
                     this.remove();
                 });
             });
-            this.board.querySelectorAll("div.Chessboard")[0].addEventListener("dragstart", function (ev) {
-                ev.preventDefault();
-            });
             this.board.querySelectorAll("div.Chessboard")[0].addEventListener("dragover", function (ev) {
                 ev.preventDefault();
             });
