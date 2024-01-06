@@ -6,7 +6,7 @@
 // https://github.com/oakmac/chessboardjs/blob/master/LICENSE.md
 
 // start anonymous scope
-var Chessboard = (function (e, win) { (typeof module.exports != "undefined" && typeof module.exports != "object") ? module.exports = e(win) : (function () { Chessboard = e(win); })(); return e(win); })(
+var Chessboard = (function (e, win) { return e(win); })(
   function (window) {
     'use strict'
 
