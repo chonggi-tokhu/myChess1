@@ -1,4 +1,4 @@
-import { Chess } from "./chess.js";
+import { Chess } from "./chess_cjs.js";
 import { Chessboard } from "./chessboardjs-1.0.0/js/chessboard-1.0.0_esm.js";
 var game = null;
 var board = null;
