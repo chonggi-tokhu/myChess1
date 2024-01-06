@@ -314,6 +314,7 @@ var Chessboard = (function (func, win) {
             .replace(/4/g, '1111')
             .replace(/3/g, '111')
             .replace(/2/g, '11')
+        //왜안되지
     }
 
     function myclass(el, config) {
