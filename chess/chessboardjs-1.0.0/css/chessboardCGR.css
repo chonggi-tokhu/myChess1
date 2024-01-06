@@ -9,10 +9,16 @@
 }
 
 .Chessboard div.rank div.square.light {
+    display: block;
+    width: calc(var(--displaywidth)*0.3) !important;
+    height: calc(var(--displaywidth)*0.3) !important;
     background: #bef;
 }
 
 .Chessboard div.rank div.square.dark {
+    display: block;
+    width: calc(var(--displaywidth)*0.3) !important;
+    height: calc(var(--displaywidth)*0.3) !important;
     background: radial-gradient(#bef 15%, #eee 25%, brown 35%, #121212);
 }
 
