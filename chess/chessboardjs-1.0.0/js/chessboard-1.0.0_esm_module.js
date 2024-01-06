@@ -634,7 +634,7 @@ var Chessboard = (function (e, win, jquery) { return e(win, jquery); })(
         var errorMsg2 = 'Chessboard Error 1003: ' +
           'The first argument to Chessboard() must be the ID of a DOM node, ' +
           'an ID query selector, or a single DOM node.' +
-          '\n\n' +
+          '\n' + $container + '\n' +
           'Exiting' + ELLIPSIS
         window.alert(errorMsg2)
         return false
