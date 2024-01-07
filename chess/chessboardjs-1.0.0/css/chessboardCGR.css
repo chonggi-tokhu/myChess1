@@ -75,10 +75,11 @@
 
 .Chessboard div.files.row::before {
     content: "CGR";
+    display: block;
     font: normal small-caps normal 10px/12px Gulim, sans-serif;
     color: #e9e0ef;
     background: var(--chessboarddarksq);
-    width: 2em;
+    width: 2em !important;
 }
 
 .Chessboard div.files.row div.square.file {
