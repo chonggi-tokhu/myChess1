@@ -107,8 +107,11 @@ var configobj = {
                     from: neweldata,
                     to: ev.target.getAttribute("data-square"),
                     promotion: 'q',
-                }) : rule.move((function (param1, param2) { if ((param1 == "e1" && param2 == "g1") || (param1 == "e8" && param2 == "g8")) { return "O-O" } else if ((param1 == "e1" && param2 == "c1") || (param1 == "e8" && param2 == "c8")) { return "O-O-O" } else { return null } })(neweldata, ev.target.getAttribute("data-square")));
+                }) : rule.move((function (param1, param2) { if ((param1 == "e1" && param2 == "g1") || (param1 == "e8" && param2 == "g8")) { return "O-O" } else if ((param1 == "e1" && param2 == "c1") || (param1 == "e8" && param2 == "c8")) { return "O-O-O" } else { return null; } })(neweldata, ev.target.getAttribute("data-square")));
                 if (mymove === null) {
+                    if (iscastling) {
+                        console.log((function (param1, param2) { if ((param1 == "e1" && param2 == "g1") || (param1 == "e8" && param2 == "g8")) { return "O-O" } else if ((param1 == "e1" && param2 == "c1") || (param1 == "e8" && param2 == "c8")) { return "O-O-O" } else { return null; } })(neweldata, ev.target.getAttribute("data-square")));
+                    }
                     console.log(mymove);
                     return 'snapback';
                 }
