@@ -386,6 +386,12 @@ var Chessboard = (function (func, win) {
                 });
             });
             this.board.querySelectorAll("div.square img.piece").forEach(function (val, idx, arr) {
+                if (val.style) {
+                    if (typeof val.style.setProperty == "function" && val.innerWidth && val.innerHeight) {
+                        val.style.setProperty("--pieceheight-2", val.innerHeight + "px");
+                        val.style.setProperty("--piecewidth-2", val.innerWidth + "px");
+                    }
+                }
                 val.addEventListener("dragstart", function (ev) {
                     ev.dataTransfer.setData("mysq", JSON.stringify(val));
                     ev.dataTransfer.setData("html", val.outerHTML);
