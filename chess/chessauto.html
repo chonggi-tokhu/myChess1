@@ -78,6 +78,9 @@
             document.querySelector(':root').style.setProperty("--displaywidth", window.innerWidth / 10 * 0.75 + "px");
             window.dispatchEvent(onCompleteLoadingBoard);
         });
+        window.addEventListener("resize", function (eventparam) {
+            document.querySelector(':root').style.setProperty("--displaywidth", window.innerHeight / 10 * 0.75 + "px");
+        })
     </script>
 </body>
 
