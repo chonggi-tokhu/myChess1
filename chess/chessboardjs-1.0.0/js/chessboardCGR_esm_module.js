@@ -120,13 +120,16 @@ var Chessboard = (function (func, win) {
         var rtv = [];
         for (var i = 0; i < this.children.length; i++) {
             console.log(this.children.item(i));
+            console.log(this.children.item(i).getAttribute(attr));
             if (this.children.item(i).getAttribute(attr) == value) {
                 rtv[rtv.length] = this.children(i);
-                if (this.children(i).children.length > 0) {
-                    rtv[rtv.length] = this.children(i).getElementsByAttrValue(attr, value);
-                }
+
+            }
+            if (this.children(i).children.length > 0) {
+                rtv[rtv.length] = this.children(i).getElementsByAttrValue(attr, value);
             }
         }
+        console.log(rtv);
         var rtv2 = simplearray(rtv);
         return rtv2;
     }
@@ -136,11 +139,13 @@ var Chessboard = (function (func, win) {
             console.log(this.children.item(i));
             if (this.children.item(i).getAttribute(attr) == value) {
                 rtv[rtv.length] = this.children(i);
-                if (this.children(i).children.length > 0) {
-                    rtv[rtv.length] = this.children(i).getElementsByAttrValue(attr, value);
-                }
+
+            }
+            if (this.children(i).children.length > 0) {
+                rtv[rtv.length] = this.children(i).getElementsByAttrValue(attr, value);
             }
         }
+        console.log(rtv);
         var rtv2 = simplearray(rtv);
         return rtv2;
     }
