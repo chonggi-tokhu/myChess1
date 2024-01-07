@@ -3,6 +3,7 @@
 }
 
 .Chessboard div.rank div.square {
+    position: relative;
     display: block;
     width: calc(var(--displaywidth)*0.3) !important;
     height: calc(var(--displaywidth)*0.3) !important;
