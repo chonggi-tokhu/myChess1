@@ -270,6 +270,9 @@ function autochess(elp, elSelectorP, parel, configparam) {
             boards[boards.length] = board0;
             namedboards[board0] = boards[boards.length - 1];
         }
+        boards.forEach(function (val, idx, arr) {
+            val.start();
+        })
         return { boards: boards, namedboards: namedboards, };
     } else {
         return false;
