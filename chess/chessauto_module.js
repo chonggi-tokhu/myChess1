@@ -136,6 +136,7 @@ var configobj = {
             val.addEventListener("drop", function (ev) {
                 var newel = ev.dataTransfer.getData("mysq");
                 var neweldata = ev.dataTransfer.getData("square");
+                console.log(thisobj.board.getElementsByAttrValue("data-square", neweldata)[0]);
                 ev.target.parentElement.appendChild(thisobj.board.getElementsByAttrValue("data-square", neweldata)[0]);
                 thisobj.animate(ev.target, "kill", { opacity: 1 }, { opacity: 0 });
                 this.remove();
