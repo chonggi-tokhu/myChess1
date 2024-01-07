@@ -95,7 +95,7 @@ var configobj = {
     },
     eventfunc(thisobj, rule, fen) {
         var myfen = thisobj.fenToObj(fen);
-        var draggable = (this.config.draggable) ? thisobj.config.draggable : false;
+        var draggable = (thisobj.config.draggable) ? thisobj.config.draggable : false;
         thisobj.board.querySelectorAll("div.rank div.square").forEach(function (val, idx, arr) {
             val.innerHTML = (!myfen[val.getAttribute("data-square")] || myfen[val.getAttribute("data-square")] == undefined) ? '' : `<img src="${thisobj.config.piece(myfen[val.getAttribute("data-square")])}" class="piece" data-piece="${myfen[val.getAttribute("data-square")]}" draggable="${draggable}">`;
             val.addEventListener("drop", function (ev) {
