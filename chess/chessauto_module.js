@@ -291,7 +291,7 @@ function autochess(elp, elSelectorP, parel, configparam) {
                 var customconf = configobj;
                 if (el.hasAttribute("position")) {
                     customconf.position = el.getAttribute("position");
-                    configobj = customconf;
+                    configobj.position = customconf.position;
                 }
                 var board0 = new ChessboardGame(new Chess(config.position), new Chessboard(el, configobj));
                 boards[boards.length] = board0;
@@ -311,7 +311,7 @@ function autochess(elp, elSelectorP, parel, configparam) {
                 var customconf = configobj;
                 if (el.hasAttribute("position")) {
                     customconf.position = el.getAttribute("position");
-                    configobj = customconf;
+                    configobj.position = customconf.position;
                 }
                 var board0 = new ChessboardGame(new Chess(config.position), new Chessboard(el, configobj));
                 boards[boards.length] = board0;
