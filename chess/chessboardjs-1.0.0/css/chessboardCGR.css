@@ -33,9 +33,9 @@
 
 .Chessboard div.rank div.square img.piece {
     position: relative;
-    width: calc(var(--displaywidth)*0.5) !important;
+    width: calc(var(--displaywidth)*0.6) !important;
     --squarewidth: inherit;
-    --piecewidth: calc(var(--displaywidth)*0.5);
+    --piecewidth: calc(var(--displaywidth)*0.6);
     --piecewidth-2: max-width;
     left: calc((var(--squarewidth) - var(--piecewidth-2))/2);
     --pieceheight: 1vmax;
@@ -78,6 +78,7 @@
     font: normal small-caps normal 10px/12px Gulim, sans-serif;
     color: #e9e0ef;
     background: var(--chessboarddarksq);
+    width: 2em;
 }
 
 .Chessboard div.files.row div.square.file {
