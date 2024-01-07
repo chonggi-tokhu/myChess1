@@ -7,6 +7,7 @@
     display: block;
     width: calc(var(--displaywidth)*0.6) !important;
     height: calc(var(--displaywidth)*0.6) !important;
+    --squarewidth: calc(var(var(--displaywidth))*0.6) !important;
 }
 
 .Chessboard div.rank div.square.light {
@@ -19,8 +20,13 @@
 
 .Chessboard div.rank div.square img.piece {
     position: relative;
-    top: 0px;
-    width: calc(var(--displaywidth)*0.4);
+    --squarewidth: inherit;
+    --piecewidth: calc(var(--displaywidth)*0.5);
+    left: calc((var(--squarewidth) - var(--piecewidth))/2);
+    width: calc(var(--displaywidth)*0.5);
+    --pieceheight: 1vmax;
+    --pieceheight-2: max-height;
+    top: calc((var(--squarewidth) - var(--pieceheight))/2);
 }
 
 .Chessboard div.rank {
