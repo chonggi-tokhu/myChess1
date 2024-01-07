@@ -116,6 +116,7 @@ var configobj = {
                     return 'snapback';
                 }
                 if (mymove.san && mymove.to) {
+                    console.log(mymove.san.split("x")[1]);
                     if (mymove.captured == 'p' && mymove.piece == "p" && mymove.san.split("x")[1] != mymove.to) {
                         console.log("en pasant");
                         if (mymove.color == "w") {
