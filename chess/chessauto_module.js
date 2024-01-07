@@ -115,6 +115,20 @@ var configobj = {
                     console.log(mymove);
                     return 'snapback';
                 }
+                if (mymove.san && mymove.to) {
+                    if (mymove.san.includes("x") && mymove.piece == "p" && (mymove.san.split("x")[1] != mymove.to)) {
+                        if (mymove.color == "w") {
+                            var enpasantpiece = mymove.to.replace(mymove.to.split("")[1], Number(mymove.to.split("")[1]) - 1);
+                            thisobj.animate(thisobj.getElementsByAttrValue("data-square", enpasantpiece).getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
+                            thisobj.getElementsByAttrValue("data-square", enpasantpiece).getElementsByTagName("img")[0].remove();
+                        } else {
+                            var enpasantpiece = mymove.to.replace(mymove.to.split("")[1], Number(mymove.to.split("")[1]) + 1);
+                            thisobj.animate(thisobj.getElementsByAttrValue("data-square", enpasantpiece).getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
+                            thisobj.getElementsByAttrValue("data-square", enpasantpiece).getElementsByTagName("img")[0].remove();
+                        }
+                    }
+                }
+
                 if (this.children.length > 0) {
                     if (newelhtml) {
                         val.appendChild(thisobj.board.getElementsByAttrValue("data-square", neweldata)[0].getElementsByTagName("img")[0]);
