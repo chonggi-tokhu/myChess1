@@ -123,6 +123,21 @@ var configobj = {
                     }
                 } else {
                     val.appendChild(thisobj.board.getElementsByAttrValue("data-square", neweldata)[0].getElementsByTagName("img")[0]);
+                    if (iscastling) {
+                        if ((function (param1, param2) { if ((param1 == "e1" && param2 == "g1") || (param1 == "e8" && param2 == "g8")) { return "O-O" } else if ((param1 == "e1" && param2 == "c1") || (param1 == "e8" && param2 == "c8")) { return "O-O-O" } else { return null; } })(neweldata, ev.target.getAttribute("data-square")) == "O-O") {
+                            if (neweldata == "e1") {
+                                thisobj.board.getElementsByAttrValue("data-square", "f1")[0].appendChild(thisobj.board.getElementsByAttrValue("data-square", "h1")[0].getElementsByTagName("img")[0]);
+                            } else if (neweldata == "e8") {
+                                thisobj.board.getElementsByAttrValue("data-square", "f8")[0].appendChild(thisobj.board.getElementsByAttrValue("data-square", "h8")[0].getElementsByTagName("img")[0]);
+                            }
+                        } else if ((function (param1, param2) { if ((param1 == "e1" && param2 == "g1") || (param1 == "e8" && param2 == "g8")) { return "O-O" } else if ((param1 == "e1" && param2 == "c1") || (param1 == "e8" && param2 == "c8")) { return "O-O-O" } else { return null; } })(neweldata, ev.target.getAttribute("data-square")) == "O-O-O") {
+                            if (neweldata == "e1") {
+                                thisobj.board.getElementsByAttrValue("data-square", "c1")[0].appendChild(thisobj.board.getElementsByAttrValue("data-square", "a1")[0].getElementsByTagName("img")[0]);
+                            } else if (neweldata == "e8") {
+                                thisobj.board.getElementsByAttrValue("data-square", "c8")[0].appendChild(thisobj.board.getElementsByAttrValue("data-square", "a8")[0].getElementsByTagName("img")[0]);
+                            }
+                        }
+                    }
                 }
             });
         });
