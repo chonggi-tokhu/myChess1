@@ -120,11 +120,11 @@ var configobj = {
                         console.log("en pasant");
                         if (mymove.color == "w") {
                             var enpasantpiece = mymove.to.replace(mymove.to.split("")[1], Number(mymove.to.split("")[1]) - 1);
-                            thisobj.animate(thisobj.getElementsByAttrValue("data-square", enpasantpiece).getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
+                            thisobj.animate(thisobj.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
                             thisobj.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0].remove();
                         } else {
                             var enpasantpiece = mymove.to.replace(mymove.to.split("")[1], Number(mymove.to.split("")[1]) + 1);
-                            thisobj.animate(thisobj.getElementsByAttrValue("data-square", enpasantpiece).getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
+                            thisobj.animate(thisobj.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
                             thisobj.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0].remove();
                         }
                     }
