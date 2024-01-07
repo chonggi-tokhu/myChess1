@@ -110,7 +110,9 @@ var Chessboard = (function (func, win) {
                     rtv[rtv.length] = aderr[ijk];
                 }
             } else {
-                rtv[rtv.length] = arr[i];
+                if (!Array.isArray(arr[i])) {
+                    rtv[rtv.length] = arr[i];
+                }
             }
         }
         return rtv;
@@ -121,7 +123,6 @@ var Chessboard = (function (func, win) {
         for (var i = 0; i < this.children.length; i++) {
             if (this.children.item(i).getAttribute(attr) == value) {
                 rtv[rtv.length] = this.children.item(i);
-
             }
             if (this.children.item(i).children.length > 0) {
                 rtv[rtv.length] = this.children.item(i).getElementsByAttrValue(attr, value);
