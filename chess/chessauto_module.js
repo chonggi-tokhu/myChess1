@@ -104,8 +104,8 @@ var configobj = {
                 var newelhtml = ev.dataTransfer.getData("html");
                 var mymove = rule.move({
                     from: neweldata,
-                    to: ev.target.getAttribute("id"),
-                    promotion: 'queen',
+                    to: ev.target.getAttribute("data-square"),
+                    promotion: 'q',
                 });
                 if (mymove === null) {
                     return 'snapback';
