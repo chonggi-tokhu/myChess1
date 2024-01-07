@@ -49,6 +49,7 @@
 
 .Chessboard {
     counter-set: rankNumber 9;
+    padding-bottom: 0.5em;
 }
 
 .Chessboard div.rank::before {
