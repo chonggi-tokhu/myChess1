@@ -289,9 +289,9 @@ function autochess(elp, elSelectorP, parel, configparam) {
                 var config = new configparam();
                 (config.position == "start") ? config.position = `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1` : config.position = config.position;
                 var customconf = configobj;
-                if (el.hasAttribute("position")) {
-                    customconf.position = el.getAttribute("position");
-                    configobj.position = customconf.position;
+                configobj.position = el.getAttribute("position");
+                if (!el.hasAttribute("position")) {
+                    configobj.position = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
                 }
                 var board0 = new ChessboardGame(new Chess(config.position), new Chessboard(el, configobj));
                 boards[boards.length] = board0;
@@ -309,10 +309,11 @@ function autochess(elp, elSelectorP, parel, configparam) {
                 var config = new configparam();
                 (config.position == "start") ? config.position = `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1` : config.position = config.position;
                 var customconf = configobj;
-                if (el.hasAttribute("position")) {
-                    customconf.position = el.getAttribute("position");
-                    configobj.position = customconf.position;
+                configobj.position = el.getAttribute("position");
+                if (!el.hasAttribute("position")) {
+                    configobj.position = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
                 }
+
                 var board0 = new ChessboardGame(new Chess(config.position), new Chessboard(el, configobj));
                 boards[boards.length] = board0;
                 namedboards[key] = (function (param) { return param })(boards[boards.length - 1]);
