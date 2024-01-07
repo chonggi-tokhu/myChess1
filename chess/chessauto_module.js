@@ -117,16 +117,24 @@ var configobj = {
                 }
                 if (mymove.san && mymove.to) {
                     console.log(mymove.san.split("x")[1]);
-                    if (mymove.captured == 'p' && mymove.piece == "p" && mymove.san.split("x")[1] != mymove.to) {
-                        console.log("en pasant");
+                    if (mymove.captured == 'p' && mymove.piece == "p") {
+
                         if (mymove.color == "w") {
+
                             var enpasantpiece = mymove.to.replace(mymove.to.split("")[1], Number(mymove.to.split("")[1]) - 1);
-                            thisobj.animate(thisobj.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
-                            thisobj.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0].remove();
+                            if (thisobj.board.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img").length > 0) {
+                                console.log("en pasant");
+                                thisobj.animate(thisobj.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
+                                thisobj.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0].remove();
+                            }
+
                         } else {
                             var enpasantpiece = mymove.to.replace(mymove.to.split("")[1], Number(mymove.to.split("")[1]) + 1);
-                            thisobj.animate(thisobj.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
-                            thisobj.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0].remove();
+                            if (thisobj.board.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img").length > 0) {
+                                console.log("en pasant");
+                                thisobj.animate(thisobj.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
+                                thisobj.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0].remove();
+                            }
                         }
                     }
                 }
