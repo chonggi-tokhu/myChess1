@@ -7,13 +7,13 @@
 .Chessboard div.rank div.square {
     position: relative;
     display: block;
-    height: calc(var(--displaywidth)*0.7) !important;
-    --squarewidth: calc(var(var(--displaywidth))*0.7) !important;
+    height: calc(var(--displaywidth)*0.6) !important;
+    --squarewidth: calc(var(var(--displaywidth))*0.6) !important;
 }
 
 .Chessboard div.row div.square,
 .Chessboard div.row.file div.files {
-    width: calc(var(--displaywidth)*0.7) !important;
+    width: calc(var(--displaywidth)*0.6) !important;
     text-align: center !important;
     align-items: center !important;
     align-content: center !important;
@@ -33,9 +33,9 @@
 
 .Chessboard div.rank div.square img.piece {
     position: relative;
-    width: calc(var(--displaywidth)*0.6) !important;
+    width: calc(var(--displaywidth)*0.5) !important;
     --squarewidth: inherit;
-    --piecewidth: calc(var(--displaywidth)*0.6);
+    --piecewidth: calc(var(--displaywidth)*0.5);
     --piecewidth-2: max-width;
     left: calc((var(--squarewidth) - var(--piecewidth-2))/2);
     --pieceheight: 1vmax;
