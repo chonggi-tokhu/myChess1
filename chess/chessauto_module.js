@@ -102,12 +102,12 @@ var configobj = {
                 var newel = ev.dataTransfer.getData("mysq");
                 var neweldata = ev.dataTransfer.getData("square");
                 var newelhtml = ev.dataTransfer.getData("html");
-                var iscastling = (myfen[neweldata] == "wK" || myfen[neweldata] == "bK");
+                var iscastling = (myfen[neweldata] == "wK" || myfen[neweldata] == "bK") && ((((param1 == "e1" && param2 == "g1") || (param1 == "e8" && param2 == "g8"))) || ((param1 == "e1" && param2 == "c1") || (param1 == "e8" && param2 == "c8")));
                 var mymove = (!iscastling) ? rule.move({
                     from: neweldata,
                     to: ev.target.getAttribute("data-square"),
                     promotion: 'q',
-                }) : rule.move((function (param1, param2) { if ((param1 == "e1" && param2 == "g1") || (param1 == "e8" && param2 == "g8")) { return "O-O" } else if ((param1 == "e1" && param2 == "c1") || (param1 == "e8" && param2 == "c8")) { return "O-O-O" } })(neweldata, ev.target.getAttribute("data-square")));
+                }) : rule.move((function (param1, param2) { if ((param1 == "e1" && param2 == "g1") || (param1 == "e8" && param2 == "g8")) { return "O-O" } else if ((param1 == "e1" && param2 == "c1") || (param1 == "e8" && param2 == "c8")) { return "O-O-O" } else { return null } })(neweldata, ev.target.getAttribute("data-square")));
                 if (mymove === null) {
                     console.log(mymove);
                     return 'snapback';
