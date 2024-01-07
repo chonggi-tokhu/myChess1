@@ -124,16 +124,16 @@ var configobj = {
                             var enpasantpiece = mymove.to.replace(mymove.to.split("")[1], Number(mymove.to.split("")[1]) - 1);
                             if (thisobj.board.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img").length > 0) {
                                 console.log("en pasant");
-                                thisobj.animate(thisobj.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
-                                thisobj.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0].remove();
+                                thisobj.animate(thisobj.board.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
+                                thisobj.board.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0].remove();
                             }
 
                         } else {
                             var enpasantpiece = mymove.to.replace(mymove.to.split("")[1], Number(mymove.to.split("")[1]) + 1);
                             if (thisobj.board.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img").length > 0) {
                                 console.log("en pasant");
-                                thisobj.animate(thisobj.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
-                                thisobj.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0].remove();
+                                thisobj.animate(thisobj.board.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
+                                thisobj.board.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0].remove();
                             }
                         }
                     }
