@@ -147,9 +147,9 @@ var configobj = {
                             }
                         } else if ((function (param1, param2) { if ((param1 == "e1" && param2 == "g1") || (param1 == "e8" && param2 == "g8")) { return "O-O" } else if ((param1 == "e1" && param2 == "c1") || (param1 == "e8" && param2 == "c8")) { return "O-O-O" } else { return null; } })(neweldata, ev.target.getAttribute("data-square")) == "O-O-O") {
                             if (neweldata == "e1") {
-                                thisobj.board.getElementsByAttrValue("data-square", "c1")[0].appendChild(thisobj.board.getElementsByAttrValue("data-square", "a1")[0].getElementsByTagName("img")[0]);
+                                thisobj.board.getElementsByAttrValue("data-square", "d1")[0].appendChild(thisobj.board.getElementsByAttrValue("data-square", "a1")[0].getElementsByTagName("img")[0]);
                             } else if (neweldata == "e8") {
-                                thisobj.board.getElementsByAttrValue("data-square", "c8")[0].appendChild(thisobj.board.getElementsByAttrValue("data-square", "a8")[0].getElementsByTagName("img")[0]);
+                                thisobj.board.getElementsByAttrValue("data-square", "d8")[0].appendChild(thisobj.board.getElementsByAttrValue("data-square", "a8")[0].getElementsByTagName("img")[0]);
                             }
                         }
                     }
