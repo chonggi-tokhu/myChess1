@@ -22,8 +22,8 @@
     position: relative;
     --squarewidth: inherit;
     --piecewidth: calc(var(--displaywidth)*0.5);
-    left: calc((var(--squarewidth) - var(--piecewidth))/2);
-    width: calc(var(--displaywidth)*0.5);
+    --piecewidth-2: max-width;
+    left: calc((var(--squarewidth) - var(--piecewidth-2))/2);
     --pieceheight: 1vmax;
     --pieceheight-2: max-height;
     top: calc((var(--squarewidth) - var(--pieceheight-2))/2);
