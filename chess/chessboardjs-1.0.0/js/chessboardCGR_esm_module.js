@@ -429,47 +429,9 @@ var Chessboard = (function (func, win) {
                     }
                 }
             } else {
-                this.board.querySelectorAll("div.rank div.square").forEach(function (val, idx, arr) {
-                    val.innerHTML = (!myfen[val.getAttribute("data-square")] || myfen[val.getAttribute("data-square")] == undefined) ? '' : `<img src="${thisobj.config.piece(myfen[val.getAttribute("data-square")])}" class="piece" data-piece="${myfen[val.getAttribute("data-square")]}" draggable="${draggable}">`;
-                    val.addEventListener("drop", function (ev) {
-                        var newel = ev.dataTransfer.getData("mysq");
-                        var neweldata = ev.dataTransfer.getData("square");
-                        var newelhtml = ev.dataTransfer.getData("html");
-                        if (this.children.length > 0) {
-                            if (newelhtml) {
-                                val.appendChild(thisobj.board.getElementsByAttrValue("data-square", neweldata)[0].getElementsByTagName("img")[0]);
-                                thisobj.animate(this.children.item(0), "kill", { opacity: 1 }, { opacity: 0 });
-                                this.children.item(0).remove();
-                            }
-                        } else {
-                            val.appendChild(thisobj.board.getElementsByAttrValue("data-square", neweldata)[0].getElementsByTagName("img")[0]);
-                        }
-                    });
-                });
-                this.board.querySelectorAll("div.square img.piece").forEach(function (val, idx, arr) {
-                    if (val.style) {
-                        if (typeof val.style.setProperty == "function" && val.offsetWidth && val.offsetHeight) {
-                            val.style.setProperty("--pieceheight-2", val.offsetHeight + "px");
-                            val.style.setProperty("--piecewidth-2", val.offsetWidth + "px");
-                        }
-                    }
-                    val.addEventListener("dragstart", function (ev) {
-                        ev.dataTransfer.setData("mysq", JSON.stringify(val));
-                        ev.dataTransfer.setData("html", val.outerHTML);
-                        ev.dataTransfer.setData("square", val.parentElement.getAttribute("data-square"));
-                    });
-                    val.addEventListener("drop", function (ev) {
-                        var newel = ev.dataTransfer.getData("mysq");
-                        ev.target.parentElement.appendChild(this.board.getElementsByAttrValue("data-square", newel)[0]);
-                        thisobj.animate(ev.target, "kill", { opacity: 1 }, { opacity: 0 });
-                        this.remove();
-                    });
-                });
-                this.board.querySelectorAll("div.Chessboard")[0].addEventListener("dragover", function (ev) {
-                    ev.preventDefault();
-                });
             }
             this.prevposition = new String(fen);
+            return { board: this.board, thisobj: thisobj, myfen: myfen, };
         },
         animate(pieceEl, opt, ...type) {
             if (pieceEl instanceof HTMLElement && typeof type == "object" && typeof this.config.pieceAnimationTime == "number") {
