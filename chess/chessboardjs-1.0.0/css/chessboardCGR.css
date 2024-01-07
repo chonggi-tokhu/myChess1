@@ -1,25 +1,30 @@
 :root {
     --displaywidth: 100px;
+    --chessboarddarksq: radial-gradient(#888, #101527);
+    --chessboardlightsq: #e9e0ef;
 }
 
 .Chessboard div.rank div.square {
     position: relative;
     display: block;
-    width: calc(var(--displaywidth)*0.6) !important;
-    height: calc(var(--displaywidth)*0.6) !important;
-    --squarewidth: calc(var(var(--displaywidth))*0.6) !important;
+    width: calc(var(--displaywidth)*0.8) !important;
+    height: calc(var(--displaywidth)*0.8) !important;
+    --squarewidth: calc(var(var(--displaywidth))*0.8) !important;
 }
 
 .Chessboard div.rank div.square.light {
-    background: #bef;
+    background: var(--chessboardlightsq) !important;
+    color: #060510;
 }
 
 .Chessboard div.rank div.square.dark {
-    background: radial-gradient(#bef 15%, #eee 25%, brown 35%, #121212);
+    background: var(--chessboarddarksq) !important;
+    color: #e9e0ef;
 }
 
 .Chessboard div.rank div.square img.piece {
     position: relative;
+    width: 0.8vmax;
     --squarewidth: inherit;
     --piecewidth: calc(var(--displaywidth)*0.5);
     --piecewidth-2: max-width;
@@ -31,4 +36,26 @@
 
 .Chessboard div.rank {
     display: flex;
+    counter-set: rankNumber 9;
+}
+
+.Chessboard div.rank::before {
+    counter-increment: rankNumber -1;
+    content: " " counter(rankNumber) "";
+}
+
+.Chessboard div.rank:nth-child(1)::before,
+.Chessboard div.rank:nth-child(3)::before,
+.Chessboard div.rank:nth-child(5)::before,
+.Chessboard div.rank:nth-child(7)::before {
+    background: var(--chessboarddarksq);
+    color: #e9e0ef;
+}
+
+.Chessboard div.rank:nth-child(2)::before,
+.Chessboard div.rank:nth-child(4)::before,
+.Chessboard div.rank:nth-child(6)::before,
+.Chessboard div.rank:nth-child(8)::before {
+    background: var(--chessboardlightsq);
+    color: #060510;
 }
