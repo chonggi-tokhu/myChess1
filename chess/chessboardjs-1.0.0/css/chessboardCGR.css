@@ -30,7 +30,7 @@
 
 .Chessboard div.rank div.square img.piece {
     position: relative;
-    width: 0.125vmax;
+    width: 12.5vmin;
     --squarewidth: inherit;
     --piecewidth: calc(var(--displaywidth)*0.5);
     --piecewidth-2: max-width;
