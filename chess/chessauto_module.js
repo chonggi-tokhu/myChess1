@@ -137,6 +137,15 @@ var configobj = {
             val.addEventListener("drop", function (ev) {
                 var newel = ev.dataTransfer.getData("mysq");
                 var neweldata = ev.dataTransfer.getData("square");
+                var mymove = rule.move({
+                    from: neweldata,
+                    to: ev.target.getAttribute("data-square"),
+                    promotion: 'q',
+                });
+                if (mymove === null) {
+                    console.log(mymove);
+                    return 'snapback';
+                }
                 ev.target.parentElement.appendChild(thisobj.board.getElementsByAttrValue("data-square", neweldata)[0].getElementsByTagName("img")[0]);
                 thisobj.animate(ev.target, "kill", { opacity: 1 }, { opacity: 0 });
                 this.remove();
