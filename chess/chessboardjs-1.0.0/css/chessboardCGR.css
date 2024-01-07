@@ -5,27 +5,22 @@
 .Chessboard div.rank div.square {
     position: relative;
     display: block;
-    width: calc(var(--displaywidth)*0.3) !important;
-    height: calc(var(--displaywidth)*0.3) !important;
+    width: calc(var(--displaywidth)*0.6) !important;
+    height: calc(var(--displaywidth)*0.6) !important;
 }
 
 .Chessboard div.rank div.square.light {
-    display: block;
-    width: calc(var(--displaywidth)*0.3) !important;
-    height: calc(var(--displaywidth)*0.3) !important;
     background: #bef;
 }
 
 .Chessboard div.rank div.square.dark {
-    display: block;
-    width: calc(var(--displaywidth)*0.3) !important;
-    height: calc(var(--displaywidth)*0.3) !important;
     background: radial-gradient(#bef 15%, #eee 25%, brown 35%, #121212);
 }
 
 .Chessboard div.rank div.square img.piece {
-    width: calc(var(--displaywidth)*0.22);
-    height: calc(var(--displaywidth)*0.22);
+    position: relative;
+    top: 0px;
+    width: calc(var(--displaywidth)*0.4);
 }
 
 .Chessboard div.rank {
