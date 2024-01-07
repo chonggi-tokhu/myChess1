@@ -437,12 +437,12 @@ var Chessboard = (function (func, win) {
                         var newelhtml = ev.dataTransfer.getData("html");
                         if (this.children.length > 0) {
                             if (newelhtml) {
-                                val.innerHTML = newelhtml;
+                                val.appendChild(thisobj.board.getElementsByAttrValue("data-square", neweldata));
                                 thisobj.animate(this.children.item(0), "kill", { opacity: 1 }, { opacity: 0 });
                                 this.children.item(0).remove();
                             }
                         } else {
-                            val.innerHTML = newelhtml;
+                            val.appendChild(thisobj.board.getElementsByAttrValue("data-square", neweldata));
                         }
                     });
                 });
