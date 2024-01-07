@@ -139,7 +139,7 @@ var configobj = {
                 var neweldata = ev.dataTransfer.getData("square");
                 var mymove = rule.move({
                     from: neweldata,
-                    to: ev.target.getAttribute("data-square"),
+                    to: ev.target.parentElement.getAttribute("data-square"),
                     promotion: 'q',
                 });
                 if (mymove === null) {
