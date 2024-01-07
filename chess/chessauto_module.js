@@ -108,6 +108,7 @@ var configobj = {
                     promotion: 'q',
                 });
                 if (mymove === null) {
+                    console.log(mymove);
                     return 'snapback';
                 }
                 if (this.children.length > 0) {
@@ -170,6 +171,7 @@ class ChessboardGame {
             return { game: this.game, board: this.board, move: newmove, fen: this.game.fen(), pgn: this.game.pgn, san: (typeof move == "string") ? move : newmove.san, };
         }
     }
+
     moveandupdate(move, isauto, cb) {
         var newmove = this.game.move(move);
         this.updateStatus(isauto);
