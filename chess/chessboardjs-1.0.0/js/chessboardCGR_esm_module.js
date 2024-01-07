@@ -105,8 +105,8 @@ var Chessboard = (function (func, win) {
         var rtv = [];
         console.log(arr);
         for (var i = 0; i < arr.length; i++) {
-            rtv[rtv.length] = arr[i];
             if (arr[i].length != 0) {
+                rtv[rtv.length] = arr[i];
                 var aderr = simplearray(arr[i]);
                 for (var ijk = 0; ijk < aderr.length; ijk++) {
                     rtv[rtv.length] = aderr[ijk];
