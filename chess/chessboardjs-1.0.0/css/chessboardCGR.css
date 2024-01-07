@@ -26,7 +26,7 @@
     width: calc(var(--displaywidth)*0.5);
     --pieceheight: 1vmax;
     --pieceheight-2: max-height;
-    top: calc((var(--squarewidth) - var(--pieceheight))/2);
+    top: calc((var(--squarewidth) - var(--pieceheight-2))/2);
 }
 
 .Chessboard div.rank {
