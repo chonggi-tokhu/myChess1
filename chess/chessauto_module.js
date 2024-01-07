@@ -102,7 +102,7 @@ var configobj = {
                 var newel = ev.dataTransfer.getData("mysq");
                 var neweldata = ev.dataTransfer.getData("square");
                 var newelhtml = ev.dataTransfer.getData("html");
-                var iscastling = (function () { return (myfen[neweldata] == "wK" || myfen[neweldata] == "bK") && ((((param1 == "e1" && param2 == "g1") || (param1 == "e8" && param2 == "g8"))) || ((param1 == "e1" && param2 == "c1") || (param1 == "e8" && param2 == "c8"))) })(neweldata, ev.target.getAttribute("data-square"));
+                var iscastling = (function (parm1, param2) { return (myfen[neweldata] == "wK" || myfen[neweldata] == "bK") && ((((param1 == "e1" && param2 == "g1") || (param1 == "e8" && param2 == "g8"))) || ((param1 == "e1" && param2 == "c1") || (param1 == "e8" && param2 == "c8"))) })(neweldata, ev.target.getAttribute("data-square"));
                 var mymove = (!iscastling) ? rule.move({
                     from: neweldata,
                     to: ev.target.getAttribute("data-square"),
