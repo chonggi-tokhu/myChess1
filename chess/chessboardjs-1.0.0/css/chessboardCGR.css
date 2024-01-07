@@ -11,7 +11,8 @@
     --squarewidth: calc(var(var(--displaywidth))*0.7) !important;
 }
 
-.Chessboard div.row div.square {
+.Chessboard div.row div.square,
+.Chessboard div.row.file div.files {
     width: calc(var(--displaywidth)*0.7) !important;
 }
 
@@ -29,7 +30,7 @@
 
 .Chessboard div.rank div.square img.piece {
     position: relative;
-    width: 7.5vmin;
+    width: 12.5vmin;
     --squarewidth: inherit;
     --piecewidth: calc(var(--displaywidth)*0.5);
     --piecewidth-2: max-width;
@@ -50,7 +51,7 @@
 .Chessboard div.rank::before {
     counter-increment: rankNumber -1;
     content: " " counter(rankNumber) "";
-    width: 2em;
+    width: 2em !important;
 }
 
 .Chessboard div.rank:nth-child(1)::before,
