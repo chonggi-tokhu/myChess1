@@ -119,8 +119,6 @@ var Chessboard = (function (func, win) {
     HTMLElement.prototype.getElementsByAttrValue = function (attr, value) {
         var rtv = [];
         for (var i = 0; i < this.children.length; i++) {
-            console.log(this.children.item(i));
-            console.log(this.children.item(i).getAttribute(attr));
             if (this.children.item(i).getAttribute(attr) == value) {
                 rtv[rtv.length] = this.children(i);
 
@@ -136,7 +134,6 @@ var Chessboard = (function (func, win) {
     Document.prototype.getElementsByAttrValue = function (attr, value) {
         var rtv = [];
         for (var i = 0; i < this.children.length; i++) {
-            console.log(this.children.item(i));
             if (this.children.item(i).getAttribute(attr) == value) {
                 rtv[rtv.length] = this.children(i);
 
