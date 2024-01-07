@@ -374,50 +374,105 @@ var Chessboard = (function (func, win) {
         return false;
     }
     myclass.prototype = {
-        position(fen) {
+        prevpositionfunc() {
+            return this.position;
+        },
+        prevposition: prevpositionfunc(),
+        draggedpiece: null,
+        piecetomoveautomatically: { from: null, pieceCode: null, to: null },
+        position(fen, isauto) {
             var thisobj = this;
             var myfen = fenToObj(fen);
             console.log(fen);
             var draggable = (this.config.draggable) ? this.config.draggable : false;
-            this.board.querySelectorAll("div.rank div.square").forEach(function (val, idx, arr) {
-                val.innerHTML = (!myfen[val.getAttribute("data-square")] || myfen[val.getAttribute("data-square")] == undefined) ? '' : `<img src="${thisobj.config.piece(myfen[val.getAttribute("data-square")])}" class="piece" data-piece="${myfen[val.getAttribute("data-square")]}" draggable="${draggable}">`;
-                val.addEventListener("drop", function (ev) {
-                    var newel = ev.dataTransfer.getData("mysq");
-                    var neweldata = ev.dataTransfer.getData("square");
-                    var newelhtml = ev.dataTransfer.getData("html");
-                    if (this.children.length > 0) {
-                        if (newelhtml) {
-                            val.innerHTML = newelhtml;
-                            thisobj.animate(this.children.item(0), "kill", { opacity: 1 }, { opacity: 0 });
-                            this.children.item(0).remove();
+
+            if (isauto == true) {
+                var capturing = false;
+                var capturedpiece = false;
+                var newfen1 = fenToObj(new String(fen));
+                var oldfen1 = fenToObj(this.prevposition);
+                var squaresinNumber = (function (param1, param2) {
+                    var files0 = param1.split('');
+                    var ranks0 = param2.split('');
+                    var rtv = [];
+                    for (var i = 0; i < files0.length; i++) {
+                        for (var i1 = 0; i1 < ranks0.length; i1++) {
+                            rtv[rtv.length] = files0[i] + ranks0[i1];
                         }
-                    } else {
-                        val.innerHTML = newelhtml;
+                    }
+                    return rtv;
+                })('abcdefgh', '87654321');
+                squaresinNumber.forEach(function (val, idx, arr) {
+                    if (newfen1[val] != oldfen1[val]) {
+                        if (newfen1[val]) {
+                            if (!oldfen1[val]) {
+                                thisobj.piecetomoveautomatically.to = val;
+                                thisobj.piecetomoveautomatically.pieceCode = newfen1[val];
+                            } else {
+                                thisobj.piecetomoveautomatically.to = val;
+                                thisobj.piecetomoveautomatically.pieceCode = newfen1[val];
+                                capturing = val;
+                                capturedpiece = oldfen1[val];
+                            }
+                        } else {
+                            thisobj.piecetomoveautomatically.from = val;
+                        }
                     }
                 });
-            });
-            this.board.querySelectorAll("div.square img.piece").forEach(function (val, idx, arr) {
-                if (val.style) {
-                    if (typeof val.style.setProperty == "function" && val.offsetWidth && val.offsetHeight) {
-                        val.style.setProperty("--pieceheight-2", val.offsetHeight + "px");
-                        val.style.setProperty("--piecewidth-2", val.offsetWidth + "px");
+                if (this.piecetomoveautomatically.to != null && this.piecetomoveautomatically.from != null && this.piecetomoveautomatically.pieceCode != null) {
+                    var piecesqEltomove = this.board.getElementsByAttrValue("data-square", this.piecetomoveautomatically.to);
+                    var oldpiecesqEltomove = this.board.getElementsByAttrValue("data-square", this.piecetomoveautomatically.from);
+                    this.animate(piecesqEltomove.getElementsByTagName("img")[0], "move", { left: oldpiecesqEltomove.offsetLeft, top: oldpiecesqEltomove.offsetTop, position: "absolute" }, { left: piecesqEltomove.offsetLeft, top: piecesqEltomove.offsetTop, position: "absolute" });
+                    if (capturing && capturedpiece) {
+                        if (typeof capturing == "string") {
+                            var capturedpieceEl = this.board.getElementsByAttrValue("data-square", capturing);
+                            this.animate(capturedpieceEl.getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
+                            capturedpieceEl.getElementsByTagName("img")[0].remove();
+                        }
                     }
                 }
-                val.addEventListener("dragstart", function (ev) {
-                    ev.dataTransfer.setData("mysq", JSON.stringify(val));
-                    ev.dataTransfer.setData("html", val.outerHTML);
-                    ev.dataTransfer.setData("square", val.parentElement.getAttribute("data-square"));
+            } else {
+                this.board.querySelectorAll("div.rank div.square").forEach(function (val, idx, arr) {
+                    val.innerHTML = (!myfen[val.getAttribute("data-square")] || myfen[val.getAttribute("data-square")] == undefined) ? '' : `<img src="${thisobj.config.piece(myfen[val.getAttribute("data-square")])}" class="piece" data-piece="${myfen[val.getAttribute("data-square")]}" draggable="${draggable}">`;
+                    val.addEventListener("drop", function (ev) {
+                        var newel = ev.dataTransfer.getData("mysq");
+                        var neweldata = ev.dataTransfer.getData("square");
+                        var newelhtml = ev.dataTransfer.getData("html");
+                        if (this.children.length > 0) {
+                            if (newelhtml) {
+                                val.innerHTML = newelhtml;
+                                thisobj.animate(this.children.item(0), "kill", { opacity: 1 }, { opacity: 0 });
+                                this.children.item(0).remove();
+                            }
+                        } else {
+                            val.innerHTML = newelhtml;
+                        }
+                    });
                 });
-                val.addEventListener("drop", function (ev) {
-                    var newel = ev.dataTransfer.getData("mysq");
-                    ev.target.parentElement.appendChild(document.getElementsByAttrValue("data-square", newel)[0]);
-                    thisobj.animate(ev.target, "kill", { opacity: 1 }, { opacity: 0 });
-                    this.remove();
+                this.board.querySelectorAll("div.square img.piece").forEach(function (val, idx, arr) {
+                    if (val.style) {
+                        if (typeof val.style.setProperty == "function" && val.offsetWidth && val.offsetHeight) {
+                            val.style.setProperty("--pieceheight-2", val.offsetHeight + "px");
+                            val.style.setProperty("--piecewidth-2", val.offsetWidth + "px");
+                        }
+                    }
+                    val.addEventListener("dragstart", function (ev) {
+                        ev.dataTransfer.setData("mysq", JSON.stringify(val));
+                        ev.dataTransfer.setData("html", val.outerHTML);
+                        ev.dataTransfer.setData("square", val.parentElement.getAttribute("data-square"));
+                    });
+                    val.addEventListener("drop", function (ev) {
+                        var newel = ev.dataTransfer.getData("mysq");
+                        ev.target.parentElement.appendChild(this.board.getElementsByAttrValue("data-square", newel)[0]);
+                        thisobj.animate(ev.target, "kill", { opacity: 1 }, { opacity: 0 });
+                        this.remove();
+                    });
                 });
-            });
-            this.board.querySelectorAll("div.Chessboard")[0].addEventListener("dragover", function (ev) {
-                ev.preventDefault();
-            });
+                this.board.querySelectorAll("div.Chessboard")[0].addEventListener("dragover", function (ev) {
+                    ev.preventDefault();
+                });
+            }
+            this.prevposition = new String(fen);
         },
         animate(pieceEl, opt, ...type) {
             if (pieceEl instanceof HTMLElement && typeof type == "object" && typeof this.config.pieceAnimationTime == "number") {

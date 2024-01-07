@@ -75,15 +75,34 @@ class ChessboardGame {
         var newmove = this.game.move(move);
         cb(this.game, this.board, newmove);
     }
-    update() {
-        this.board.position(this.game.fen());
+    update(isauto) {
+        this.board.position(this.game.fen(), isauto);
     }
-    updateStatus() {
-        this.update();
+    updateStatus(isauto) {
+        this.update(isauto);
     }
-    moveandupdate(move, cb) {
+    moveandupdatemanual(move, cb) {
         var newmove = this.game.move(move);
-        this.updateStatus();
+        this.updateStatus(false);
+        if (typeof cb == "function") {
+            cb(this.game, this.board, newmove);
+        } else {
+            return { game: this.game, board: this.board, move: newmove, fen: this.game.fen(), pgn: this.game.pgn, san: (typeof move == "string") ? move : newmove.san, };
+        }
+    }
+    moveandupdate(move, isauto, cb) {
+        var newmove = this.game.move(move);
+        this.updateStatus(isauto);
+        if (typeof cb == "function") {
+            cb(this.game, this.board, newmove);
+        } else {
+            return { game: this.game, board: this.board, move: newmove, fen: this.game.fen(), pgn: this.game.pgn, san: (typeof move == "string") ? move : newmove.san, };
+        }
+    }
+
+    moveandupdateauto(move, cb) {
+        var newmove = this.game.move(move);
+        this.updateStatus(true);
         if (typeof cb == "function") {
             cb(this.game, this.board, newmove);
         } else {
@@ -132,10 +151,10 @@ function autochess(elp, elSelectorP, parel, configparam) {
             parel.querySelectorAll("." + elp).forEach(function (el, key, par) {
                 var config = new configparam();
                 (config.position == "start") ? config.position = `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1` : config.position = config.position;
-                var customconf = config;
+                var customconf = configobj;
                 if (el.hasAttribute("position")) {
                     customconf.position = el.getAttribute("position");
-                    config = customconf;
+                    configobj = customconf;
                 }
                 var board0 = new ChessboardGame(new Chess(config.position), new Chessboard(el, configobj));
                 boards[boards.length] = board0;
@@ -152,10 +171,10 @@ function autochess(elp, elSelectorP, parel, configparam) {
             parel.querySelectorAll(elp).forEach(function (el, key, par) {
                 var config = new configparam();
                 (config.position == "start") ? config.position = `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1` : config.position = config.position;
-                var customconf = config;
+                var customconf = configobj;
                 if (el.hasAttribute("position")) {
                     customconf.position = el.getAttribute("position");
-                    config = customconf;
+                    configobj = customconf;
                 }
                 var board0 = new ChessboardGame(new Chess(config.position), new Chessboard(el, configobj));
                 boards[boards.length] = board0;
