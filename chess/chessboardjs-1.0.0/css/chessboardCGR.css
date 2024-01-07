@@ -12,12 +12,14 @@
     --squarewidth: calc(var(var(--displaywidth))*0.8) !important;
 }
 
-.Chessboard div.rank div.square.light {
+.Chessboard div.rank div.square.light,
+.Chessboard div.files div.file.square.light {
     background: var(--chessboardlightsq) !important;
     color: #060510;
 }
 
-.Chessboard div.rank div.square.dark {
+.Chessboard div.rank div.square.dark,
+.Chessboard div.files div.file.square.dark {
     background: var(--chessboarddarksq) !important;
     color: #e9e0ef;
 }
@@ -34,8 +36,11 @@
     top: calc((var(--squarewidth) - var(--pieceheight-2))/2);
 }
 
-.Chessboard div.rank {
+.Chessboard div.row {
     display: flex;
+}
+
+.Chessboard div.rank {
     counter-set: rankNumber 9;
 }
 
@@ -58,4 +63,11 @@
 .Chessboard div.rank:nth-child(8)::before {
     background: var(--chessboardlightsq);
     color: #060510;
+}
+
+.Chessboard div.files.row::before {
+    content: "CGR";
+    font: normal small-caps normal 6px/8px Gulim, sans-serif;
+    color: #e9e0ef;
+    background: var(--chessboarddarksq);
 }

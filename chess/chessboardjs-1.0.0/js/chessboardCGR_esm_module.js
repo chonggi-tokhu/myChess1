@@ -173,7 +173,7 @@ var Chessboard = (function (func, win) {
         var myfen = fenToObj(fen);
         if (boardel instanceof HTMLElement) {
             boardel.innerHTML = `<div class="Chessboard">
-            <div class="rank">
+            <div class="rank row">
             <div class="square file light" data-square="a8">
             </div>
             <div class="square file dark" data-square="b8">
@@ -196,7 +196,7 @@ var Chessboard = (function (func, win) {
             </div>
 
 
-            <div class="rank">
+            <div class="rank row">
             <div class="square file dark" data-square="a7">
             </div>
             <div class="square file light" data-square="b7">
@@ -216,7 +216,7 @@ var Chessboard = (function (func, win) {
             </div>
 
 
-            <div class="rank">
+            <div class="rank row">
             <div class="square file light" data-square="a6">
             </div>
             <div class="square file dark" data-square="b6">
@@ -236,7 +236,7 @@ var Chessboard = (function (func, win) {
             </div>
             
 
-            <div class="rank">
+            <div class="rank row">
             <div class="square file dark" data-square="a5">
             </div>
             <div class="square file light" data-square="b5">
@@ -255,7 +255,7 @@ var Chessboard = (function (func, win) {
             </div>
             </div>
 
-            <div class="rank">
+            <div class="rank row">
             <div class="square file light" data-square="a4">
             </div>
             <div class="square file dark" data-square="b4">
@@ -274,7 +274,7 @@ var Chessboard = (function (func, win) {
             </div>
             </div>
 
-            <div class="rank">
+            <div class="rank row">
             <div class="square file dark" data-square="a3">
             </div>
             <div class="square file light" data-square="b3">
@@ -293,7 +293,7 @@ var Chessboard = (function (func, win) {
             </div>
             </div>
 
-            <div class="rank">
+            <div class="rank row">
             <div class="square file light" data-square="a2">
             </div>
             <div class="square file dark" data-square="b2">
@@ -312,7 +312,7 @@ var Chessboard = (function (func, win) {
             </div>
             </div>
 
-            <div class="rank">
+            <div class="rank row">
             <div class="square file dark" data-square="a1">
             </div>
             <div class="square file light" data-square="b1">
@@ -329,6 +329,16 @@ var Chessboard = (function (func, win) {
             </div>
             <div class="square file light" data-square="h1">
             </div>
+            </div>
+            <div class="files row">
+            <div class="file square light">a</div>
+            <div class="file square dark">b</div>
+            <div class="file square light">c</div>
+            <div class="file square dark">d</div>
+            <div class="file square light">e</div>
+            <div class="file square dark">f</div>
+            <div class="file square light">g</div>
+            <div class="file square dark">h</div>
             </div>
             </div>`;
         }
@@ -369,7 +379,7 @@ var Chessboard = (function (func, win) {
             var myfen = fenToObj(fen);
             console.log(fen);
             var draggable = (this.config.draggable) ? this.config.draggable : false;
-            this.board.querySelectorAll("div.square").forEach(function (val, idx, arr) {
+            this.board.querySelectorAll("div.rank div.square").forEach(function (val, idx, arr) {
                 val.innerHTML = (!myfen[val.getAttribute("data-square")] || myfen[val.getAttribute("data-square")] == undefined) ? '' : `<img src="${thisobj.config.piece(myfen[val.getAttribute("data-square")])}" class="piece" data-piece="${myfen[val.getAttribute("data-square")]}" draggable="${draggable}">`;
                 val.addEventListener("drop", function (ev) {
                     var newel = ev.dataTransfer.getData("mysq");
