@@ -7,9 +7,12 @@
 .Chessboard div.rank div.square {
     position: relative;
     display: block;
-    width: calc(var(--displaywidth)*0.7) !important;
     height: calc(var(--displaywidth)*0.7) !important;
     --squarewidth: calc(var(var(--displaywidth))*0.7) !important;
+}
+
+.Chessboard div.row div.square {
+    width: calc(var(--displaywidth)*0.7) !important;
 }
 
 .Chessboard div.rank div.square.light,
@@ -40,13 +43,14 @@
     display: flex;
 }
 
-.Chessboard div.rank {
+.Chessboard {
     counter-set: rankNumber 9;
 }
 
 .Chessboard div.rank::before {
     counter-increment: rankNumber -1;
     content: " " counter(rankNumber) "";
+    width: 2em;
 }
 
 .Chessboard div.rank:nth-child(1)::before,
@@ -67,7 +71,11 @@
 
 .Chessboard div.files.row::before {
     content: "CGR";
-    font: normal small-caps normal 6px/8px Gulim, sans-serif;
+    font: normal small-caps normal 10px/12px Gulim, sans-serif;
     color: #e9e0ef;
     background: var(--chessboarddarksq);
+}
+
+.Chessboard div.files.row div.square.file {
+    height: 2em;
 }
