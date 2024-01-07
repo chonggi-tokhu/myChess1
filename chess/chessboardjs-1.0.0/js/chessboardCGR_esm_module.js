@@ -360,6 +360,7 @@ var Chessboard = (function (func, win) {
         this.config = config;
         this.board = makehtml(this.config.position, this.el);
         this.position(this.config.position);
+        this.prevposition = this.config.position;
     }
     function isupperCase(string) {
         if (typeof string == "string") {
@@ -374,10 +375,6 @@ var Chessboard = (function (func, win) {
         return false;
     }
     myclass.prototype = {
-        prevpositionfunc() {
-            return this.position;
-        },
-        prevposition: prevpositionfunc(),
         draggedpiece: null,
         piecetomoveautomatically: { from: null, pieceCode: null, to: null },
         position(fen, isauto) {
