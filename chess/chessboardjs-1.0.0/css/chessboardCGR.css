@@ -14,6 +14,9 @@
 .Chessboard div.row div.square,
 .Chessboard div.row.file div.files {
     width: calc(var(--displaywidth)*0.7) !important;
+    text-align: center !important;
+    align-items: center !important;
+    align-content: center !important;
 }
 
 .Chessboard div.rank div.square.light,
@@ -30,7 +33,7 @@
 
 .Chessboard div.rank div.square img.piece {
     position: relative;
-    width: 12.5vmin;
+    width: calc(var(--displaywidth)*0.5);
     --squarewidth: inherit;
     --piecewidth: calc(var(--displaywidth)*0.5);
     --piecewidth-2: max-width;
