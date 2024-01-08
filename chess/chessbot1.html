@@ -60,7 +60,7 @@
 
     <script type="module">
         import { docChess } from "./chessauto_module.js";
-        configobj.eventfunc = function (thisobj, rule, fen) {
+        docChess.configobj.eventfunc = function (thisobj, rule, fen) {
             var myfen = thisobj.fenToObj(fen);
             var draggable = (thisobj.config.draggable) ? thisobj.config.draggable : false;
             thisobj.board.querySelectorAll("div.rank div.square").forEach(function (val, idx, arr) {
@@ -130,7 +130,7 @@
                             }
                         }
                     }
-                    botMove();
+                    /*botMove();*/
                 });
             });
             thisobj.board.querySelectorAll("div.square img.piece").forEach(function (val, idx, arr) {
