@@ -169,6 +169,15 @@
         }
         globalThis.chessauto = docChess;
         var onCompleteLoadingBoard = window.chessauto.CompleteLoadingBoard;
+        window.addEventListener("CompleteLoadingBoard", function (eventparam) {
+            if (eventparam.detail.complete == false) {
+                var boardson0 = chessauto.autochess('myBoard', '#', document.body, docChess.configobj);
+                if (boardson0 != false) {
+                    boardson = boardson0.boards;
+                }
+                onCompleteLoadingBoard.detail.complete = true;
+            }
+        });
         chessauto.autochess('myBoard', '#', docChess.config);
         window.addEventListener("load", function (eventparam) {
             document.querySelector(':root').style.setProperty("--displaywidth", window.innerWidth / 10 * 0.75 + "px");
