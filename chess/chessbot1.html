@@ -177,8 +177,8 @@
         window.addEventListener("resize", function (eventparam) {
             document.querySelector(':root').style.setProperty("--displaywidth", window.innerHeight / 10 * 0.75 + "px");
         });
-        var boards = docChess.boards;
-        var board = null;
+        var boards = docChess.boardsfunc();
+        var board = docChess.boardsfunc();
         var boardson = [];
         board = docChess.boardsfunc()[0];
         console.log(board);
