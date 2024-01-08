@@ -404,7 +404,7 @@
             return currentbestmoveidx;
         }
         function getBestMove(game, cbest, repeatCount) {
-            if (repeatCount == 0) {
+            if (repeatCount <= 0) {
                 var bestmoveidx = cbest;
                 return bestmoveidx;
             }
@@ -423,7 +423,6 @@
             console.log(bestMove);
             /*board.moveandupdateauto(bestMove);*/
         }
-        console.log(botMove());
     </script>
 </body>
 
