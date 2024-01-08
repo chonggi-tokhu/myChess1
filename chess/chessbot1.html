@@ -42,7 +42,9 @@
     <div class="body">
         <div id="myBoard" position="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"></div>
     </div>
-    <script src="./chess.js"></script>
+    <script src="./chess_cjs_2.js"></script>
+    <script src="./chessboardjs-1.0.0/js/chessboardCGR.js"></script>
+    <script src="./chess2.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
     <!--<script src="./chessauto.js" id="scriptSRCchess"></script>
     <script>
@@ -58,8 +60,7 @@
         })
     </script>-->
 
-    <script type="module">
-        import { docChess } from "./chessauto_module.js";
+    <script>
         docChess.configobj.eventfunc = function (thisobj, rule, fen) {
             var myfen = thisobj.fenToObj(fen);
             var draggable = (thisobj.config.draggable) ? thisobj.config.draggable : false;
@@ -420,6 +421,7 @@
             console.log(bestMove);
             /*board.moveandupdateauto(bestMove);*/
         }
+        console.log(botMove());
     </script>
 </body>
 
