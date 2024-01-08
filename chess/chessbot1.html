@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mychess</title>
+    <link rel="stylesheet" href="./chessboardjs-1.0.0/css/chessboardCGR.css">
+    <style>
+        :root {
+            --displaywidth: 100px;
+        }
+
+        .oneOfMyBoards .board-b72b1 {
+            width: inherit !important;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+    <chessopt chessinmodule="false"></chessopt>
+</head>
+
+<body>
+    <div class="body">
+        <div id="myBoard"></div>
+    </div>
+    <script src="./chess.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+    <!--<script src="./chessauto.js" id="scriptSRCchess"></script>
+    <script>
+        if (document.head.getElementsByTagName("chessopt")[0].getAttribute("chessinmodule") == "true") {
+            var myScriptTag = document.getElementById("scriptSRCchess");
+            myScriptTag.setAttribute("src", "./chessauto_module.js");
+            myScriptTag.setAttribute("type", "module");
+            myScriptTag.innerHTML = `import { docChess } from "./chessauto_module.js"`;
+            myScriptTag.innerHTML += `window['docChess']=docChess;`;
+        }
+        window.addEventListener("DOMContentLoaded",function(){
+            window.chessauto
+        })
+    </script>-->
+    <script src="./chessauto.js"></script>
+    <script>
+        var docChess = { autochess: autochess, ChessboardGame: ChessboardGame, boards: boards, CompleteLoadingBoard: CompleteLoadingBoard, namedboards: namedboards, Chess: Chess, Chessboard: Chessboard, config: config, };;
+        var boardson = [];
+        var board = null;
+        var mycolour = 'w';
+        var myturn = 'w';
+        function myturnfunc() {
+            myturn = globalvars.game.turn();
+            return myturn;
+        }
+
+        var _pieces_ = {
+            rook: 5,
+            pawn: 1,
+            queen: 9,
+            bishop: 3,
+            knight: 3,
+        }
+        var whitevalue = 0;
+        var blackvalue = 0;
+        var whitecanmate = '';
+        var blackcanmate = '';
+        var globalvars = {
+            position: boards[0].game.board(),
+            game: boards[0].game,
+        }
+        function posupdate() {
+            return globalvars.game.board();
+        }
+        function possiblemovesupdate() {
+            return globalvars.game.moves();
+        }
+        function simplearray(arr) {
+            var rtv = [];
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].length > 0) {
+                    var aderr = simplearray(arr[i]);
+                    for (var ijk = 0; ijk < aderr.length; ijk++) {
+                        rtv[rtv.length] = aderr[ijk];
+                    }
+                } else {
+                    if (!Array.isArray(arr[i])) {
+                        rtv[rtv.length] = arr[i];
+                    }
+                }
+            }
+            return rtv;
+        }
+        function pawnvalue() { }
+        function knightvalue() { }
+        function bishopvalue() { }
+        function rookvalue() { }
+        function queenvalue() { }
+        function kingvalue(position, requestedcolour) { if (!position) { return calculatekingsafety(globalvars.game, globalvars.position, requestedcolour); } }
+        function calculatekingsafety(game, position, colourparam) {
+            var colour = new String(colourparam);
+            var kings = globalvars.game.kings;
+            var king = kings[colour];
+        }
+        var piecevalues = function () { return { p: 1, n: 3, b: 3, r: 5, q: 9 } };
+        var piecetypes = ['p', 'n', 'r', 'q', 'b']
+        function calculatePieceValues(game, position) {
+            var position0 = game.board();
+            position0.forEach(function (val, idx, arr) {
+                if (val.color == 'w' && piecetypes.includes(val.type)) {
+                    whitevalue += piecevalues()[val.type];
+                }
+                if (val.color == 'b' && piecetypes.includes(val.type)) {
+                    blackvalue += piecevalues()[val.type];
+                }
+            });
+        }
+        function isForced(mate, game, repeatCount) {
+            var newmate0 = mate;
+            var rtv = true;
+            var theBests = [];
+            newmate0.forEach(function (val, idx, arr) {
+                if (Array.isArray(val)) {
+                    val.forEach(function (val1, idx1, arr1) {
+                        game.move(val1);
+                        if (idx1 + 1 % 2 == 1) { /* 강제 메이트 당하는 측이 현재 둘 차례인가 */
+                            if (possiblemovesupdate().length > 1) {
+                                /* 그런데 여러 수를 둘 수도 있는가 */
+                                var counts = 0;
+                                /* 그렇다면 여러 수를 둬서 얼마나 더 버틸 수 있는가 */
+                                function function2(repeatCount) {
+                                    var possiblemovesxxx = possiblemovesupdate();
+                                    for (var i = 0; i > possiblemovesxxx.length; i++) {
+                                        game.move(possiblemovesxxx[i]);
+                                        counts + 1;
+                                        /* 게임이 끝날때까지 count만 1씩 더한다. */
+                                        if (possiblemovesupdate().length > 0 && repeatCount > 0) {
+                                            /* repeatCount만큼 계산한 후에는 엔진도 모름.책임못짐 */
+                                            function2(repeatCount - 1);
+                                        }
+                                        if (possiblemovesupdate().length > 0 && repeatCount <= 0) {
+                                            rtv = false;
+                                            /* 리핏카운트는 채웠는데 아직 게임이 끝나지 않았다면 모르는거니까 그냥 강제메이트가 아니라고 치기 */
+                                        }
+                                        game.undo();
+                                        if (counts > val.length - (idx1 + 1)) {
+                                            rtv = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                function2(repeatCount);
+                            }
+                        }
+                    });
+                    val.forEach(function (val1, idx1, arr1) {
+                        game.undo();
+                    });
+                }
+            });
+            return rtv;
+        }
+        function calculateHow_dangerous_a_move_is_for_king(move, kingpos, kingcolour, repeatCount) {
+            globalvars.game.move(move);
+            var possiblemoves = possiblemovesupdate();
+            var checks = { number: 0, moves: [] };
+            var checkmates = [];
+            function calculateForcedMate(possiblemoves, thistime, repeatCount) {
+                var newcheckmate = [];
+                if (repeatCount > 0) {
+                    possiblemoves.forEach(function (val, idx, arr) {
+                        if (val.includes("#")) {
+                            newcheckmate.push(val);
+                        } else {
+                            globalvars.game.move(val);
+                            var possiblemoves2 = possiblemovesupdate();
+                            newcheckmate.push(calculateForcedMate(possiblemoves2, thistime + 1, repeatCount - 1));
+                            globalvars.game.undo();
+                        }
+                    });
+                    return simplearray(newcheckmate);
+                } else {
+                    return simplearray(newcheckmate);
+                }
+            }
+            possiblemoves.forEach(function (val, idx, arr) {
+                game.move(val);
+                var newmate = calculateForcedMate(possiblemovesupdate(), 0, repeatCount);
+                game.undo();
+                checkmates.push(newmate);
+            });
+            if (isForced(checkmates, globalvars.game, repeatCount)) {
+                if (this.turn == 'white') {
+                    blackvalue = null;
+                    blackcanmate = 'M' + (function () { var min = checkmates[0]; checkmates.forEach(function (val, idx, arr) { min = Math.min(min, arr[idx + 1]); }); return min; })();
+                } else {
+                    whitevalue = null;
+                    whitecanmate = 'M' + (function () { var min = checkmates[0]; checkmates.forEach(function (val, idx, arr) { min = Math.min(min, arr[idx + 1]); }); return min; })();
+                }
+            };
+            return { black: { value: blackvalue, matecount: blackcanmate }, white: { value: whitevalue, matecount: whitecanmate } }
+        }
+        function calculateMove(game, currentbestmoveidx) {
+            var possiblemoves = game.moves();
+            for (var i = 0; i < possiblemoves.length; i++) {
+                var move1 = possiblemoves[currentbestmoveidx];
+                game.move(move1);
+                var squares = game.board();
+                var piecevalue = 0;
+                var values = { blackvalue: blackvalue, whitevalue: whitevalue };
+                squares.forEach(function (val, idx, arr) {
+                    if (val != null) {
+                        if (val.type == 'q') {
+                            if (val.color == 'w') {
+                                values.whitevalue += 9;
+                            } else {
+                                values.blackvalue += 9
+                            }
+                        } else if (val.type == 'r') {
+                            if (val.color == 'w') {
+                                values.whitevalue += 5;
+                            } else {
+                                values.blackvalue += 5;
+                            }
+                        } else if (val.type == 'b') {
+                            if (val.color == 'w') {
+                                values.whitevalue += 3;
+                            } else {
+                                values.blackvalue += 3;
+                            }
+                        } else if (val.type == 'n') {
+                            if (val.color == 'w') {
+                                values.whitevalue += 3;
+                            } else {
+                                values.blackvalue += 3;
+                            }
+                        } else if (val.type == 'p') {
+                            if (val.color == 'w') {
+                                values.whitevalue += 1;
+                            }
+                            else {
+                                values.blackvalue += 1;
+                            }
+                        } else { }
+                    }
+                });
+                game.undo();
+                var piecevalue = values.whitevalue - values.blackvalue;
+                if (mycolour == 'w') {
+                    if (piecevalue > whitevalue) {
+                        currentbestmoveidx = i;
+                    } else {
+                        currentbestmoveidx = currentbestmoveidx;
+                    }
+                } else {
+                    if (piecevalue < -blackvalue) {
+                        currentbestmoveidx = i;
+                    } else {
+                        currentbestmoveidx = currentbestmoveidx;
+                    }
+                }
+            }
+            return currentbestmoveidx;
+        }
+        function getBestMove(game, cbest, repeatCount) {
+            var possiblemoves = possiblemovesupdate();
+            var bestmoveidx = cbest;
+            possiblemoves.forEach(function (val, idx, arr) {
+                game.move(val);
+                bestmoveidx = calculateMove(game, cbest);
+                bestmoveidx = getBestMove(game, bestmoveidx, repeatCount - 1);
+                game.undo();
+            });
+            if (repeatCount == 0) {
+                return bestmoveidx;
+            }
+            return bestmoveidx;
+        }
+        function botMove() {
+            var bestMove = getBestMove(board.game, 0, 4);
+            console.log(bestMove);
+            /*board.moveandupdateauto(bestMove);*/
+        }
+        configobj.eventfunc = function (thisobj, rule, fen) {
+            var myfen = thisobj.fenToObj(fen);
+            var draggable = (thisobj.config.draggable) ? thisobj.config.draggable : false;
+            thisobj.board.querySelectorAll("div.rank div.square").forEach(function (val, idx, arr) {
+                val.innerHTML = (!myfen[val.getAttribute("data-square")] || myfen[val.getAttribute("data-square")] == undefined) ? '' : `<img src="${thisobj.config.piece(myfen[val.getAttribute("data-square")])}" class="piece" data-piece="${myfen[val.getAttribute("data-square")]}" draggable="${draggable}">`;
+                val.addEventListener("drop", function (ev) {
+                    var newel = ev.dataTransfer.getData("mysq");
+                    var neweldata = ev.dataTransfer.getData("square");
+                    var newelhtml = ev.dataTransfer.getData("html");
+                    var iscastling = (function (param1, param2) { return (myfen[neweldata] == "wK" || myfen[neweldata] == "bK") && ((((param1 == "e1" && param2 == "g1") || (param1 == "e8" && param2 == "g8"))) || ((param1 == "e1" && param2 == "c1") || (param1 == "e8" && param2 == "c8"))) })(neweldata, ev.target.getAttribute("data-square"));
+                    var mymove = (!iscastling) ? rule.move({
+                        from: neweldata,
+                        to: ev.target.getAttribute("data-square"),
+                        promotion: 'q',
+                    }) : rule.move((function (param1, param2) { if ((param1 == "e1" && param2 == "g1") || (param1 == "e8" && param2 == "g8")) { return "O-O" } else if ((param1 == "e1" && param2 == "c1") || (param1 == "e8" && param2 == "c8")) { return "O-O-O" } else { return null; } })(neweldata, ev.target.getAttribute("data-square")));
+                    if (mymove === null) {
+                        if (iscastling) {
+                            console.log((function (param1, param2) { if ((param1 == "e1" && param2 == "g1") || (param1 == "e8" && param2 == "g8")) { return "O-O" } else if ((param1 == "e1" && param2 == "c1") || (param1 == "e8" && param2 == "c8")) { return "O-O-O" } else { return null; } })(neweldata, ev.target.getAttribute("data-square")));
+                        }
+                        console.log(mymove);
+                        return 'snapback';
+                    }
+                    if (mymove.san && mymove.to) {
+                        console.log(mymove.san.split("x")[1]);
+                        if (mymove.captured == 'p' && mymove.piece == "p") {
+
+                            if (mymove.color == "w") {
+
+                                var enpasantpiece = mymove.to.replace(mymove.to.split("")[1], Number(mymove.to.split("")[1]) - 1);
+                                if (thisobj.board.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img").length > 0) {
+                                    console.log("en pasant");
+                                    thisobj.animate(thisobj.board.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
+                                    thisobj.board.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0].remove();
+                                }
+
+                            } else {
+                                var enpasantpiece = mymove.to.replace(mymove.to.split("")[1], Number(mymove.to.split("")[1]) + 1);
+                                if (thisobj.board.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img").length > 0) {
+                                    console.log("en pasant");
+                                    thisobj.animate(thisobj.board.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0], "kill", { opacity: 1 }, { opacity: 0 });
+                                    thisobj.board.getElementsByAttrValue("data-square", enpasantpiece)[0].getElementsByTagName("img")[0].remove();
+                                }
+                            }
+                        }
+                    }
+
+                    if (this.children.length > 0) {
+                        if (newelhtml) {
+                            val.appendChild(thisobj.board.getElementsByAttrValue("data-square", neweldata)[0].getElementsByTagName("img")[0]);
+                            thisobj.animate(this.children.item(0), "kill", { opacity: 1 }, { opacity: 0 });
+                            this.children.item(0).remove();
+                        }
+                    } else {
+                        val.appendChild(thisobj.board.getElementsByAttrValue("data-square", neweldata)[0].getElementsByTagName("img")[0]);
+                        if (iscastling) {
+                            if ((function (param1, param2) { if ((param1 == "e1" && param2 == "g1") || (param1 == "e8" && param2 == "g8")) { return "O-O" } else if ((param1 == "e1" && param2 == "c1") || (param1 == "e8" && param2 == "c8")) { return "O-O-O" } else { return null; } })(neweldata, ev.target.getAttribute("data-square")) == "O-O") {
+                                if (neweldata == "e1") {
+                                    thisobj.board.getElementsByAttrValue("data-square", "f1")[0].appendChild(thisobj.board.getElementsByAttrValue("data-square", "h1")[0].getElementsByTagName("img")[0]);
+                                } else if (neweldata == "e8") {
+                                    thisobj.board.getElementsByAttrValue("data-square", "f8")[0].appendChild(thisobj.board.getElementsByAttrValue("data-square", "h8")[0].getElementsByTagName("img")[0]);
+                                }
+                            } else if ((function (param1, param2) { if ((param1 == "e1" && param2 == "g1") || (param1 == "e8" && param2 == "g8")) { return "O-O" } else if ((param1 == "e1" && param2 == "c1") || (param1 == "e8" && param2 == "c8")) { return "O-O-O" } else { return null; } })(neweldata, ev.target.getAttribute("data-square")) == "O-O-O") {
+                                if (neweldata == "e1") {
+                                    thisobj.board.getElementsByAttrValue("data-square", "d1")[0].appendChild(thisobj.board.getElementsByAttrValue("data-square", "a1")[0].getElementsByTagName("img")[0]);
+                                } else if (neweldata == "e8") {
+                                    thisobj.board.getElementsByAttrValue("data-square", "d8")[0].appendChild(thisobj.board.getElementsByAttrValue("data-square", "a8")[0].getElementsByTagName("img")[0]);
+                                }
+                            }
+                        }
+                    }
+                    botMove();
+                });
+            });
+            thisobj.board.querySelectorAll("div.square img.piece").forEach(function (val, idx, arr) {
+                if (val.style) {
+                    if (typeof val.style.setProperty == "function" && val.offsetWidth && val.offsetHeight) {
+                        val.style.setProperty("--pieceheight-2", val.offsetHeight + "px");
+                        val.style.setProperty("--piecewidth-2", val.offsetWidth + "px");
+                    }
+                }
+                val.addEventListener("dragstart", function (ev) {
+                    ev.dataTransfer.setData("mysq", JSON.stringify(val));
+                    ev.dataTransfer.setData("html", val.outerHTML);
+                    ev.dataTransfer.setData("square", val.parentElement.getAttribute("data-square"));
+                });
+                val.addEventListener("drop", function (ev) {
+                    var newel = ev.dataTransfer.getData("mysq");
+                    var neweldata = ev.dataTransfer.getData("square");
+                    var mymove = rule.move({
+                        from: neweldata,
+                        to: ev.target.parentElement.getAttribute("data-square"),
+                        promotion: 'q',
+                    });
+                    if (mymove === null) {
+                        console.log(mymove);
+                        return 'snapback';
+                    }
+                    ev.target.parentElement.appendChild(thisobj.board.getElementsByAttrValue("data-square", neweldata)[0].getElementsByTagName("img")[0]);
+                    thisobj.animate(ev.target, "kill", { opacity: 1 }, { opacity: 0 });
+                    this.remove();
+                    botMove();
+                });
+            });
+            thisobj.board.querySelectorAll("div.Chessboard")[0].addEventListener("dragover", function (ev) {
+                ev.preventDefault();
+            });
+        }
+        globalThis.chessauto = docChess;
+        var onCompleteLoadingBoard = window.chessauto.CompleteLoadingBoard;
+        chessauto.autochess('myBoard', '#', docChess.config);
+        window.addEventListener("load", function (eventparam) {
+            document.querySelector(':root').style.setProperty("--displaywidth", window.innerWidth / 10 * 0.75 + "px");
+            window.dispatchEvent(onCompleteLoadingBoard);
+        });
+        window.addEventListener("resize", function (eventparam) {
+            document.querySelector(':root').style.setProperty("--displaywidth", window.innerHeight / 10 * 0.75 + "px");
+        });
+        board = boards[0];
+    </script>
+</body>
+
+</html>
