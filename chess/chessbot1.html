@@ -181,6 +181,7 @@
         var board = null;
         var boardson = [];
         board = boards[0];
+        console.log(board);
         var mycolour = 'w';
         var myturn = 'w';
         function myturnfunc() {
@@ -200,8 +201,8 @@
         var whitecanmate = '';
         var blackcanmate = '';
         var globalvars = {
-            position: boards[0].game.board(),
-            game: boards[0].game,
+            position: board.game.board(),
+            game: board.game,
         }
         function posupdate() {
             return globalvars.game.board();
