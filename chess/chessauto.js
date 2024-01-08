@@ -1,5 +1,5 @@
-import { Chess } from "./chess_cjs.js";
-import { Chessboard } from "./chessboardjs-1.0.0/js/chessboardCGR_esm_module.js";
+/*import { Chess } from "./chess_cjs.js";
+import { Chessboard } from "./chessboardjs-1.0.0/js/chessboardCGR_esm_module.js";*/
 var game = null;
 var board = null;
 CustomEvent.prototype.changeprops = function (propname, valtochange) {
