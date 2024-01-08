@@ -57,12 +57,9 @@
             window.chessauto
         })
     </script>-->
-    <script src="./chess_cjs.js"></script>
-    <script src="./chessboardjs-1.0.0/js/chessboardCGR_esm_module.js"></script>
-    <script src="./chessauto.js"></script>
 
-    <script>
-        var docChess = { autochess: autochess, ChessboardGame: ChessboardGame, boards: boards, CompleteLoadingBoard: CompleteLoadingBoard, namedboards: namedboards, Chess: Chess, Chessboard: Chessboard, config: config, };;
+    <script type="module">
+        import { docChess } from "./chessauto_module.js";
         var boardson = [];
         var board = null;
         var mycolour = 'w';
