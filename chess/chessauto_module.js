@@ -308,7 +308,6 @@ function autochess(elp, elSelectorP, parel, configparam) {
             }
             var board0 = new ChessboardGame(new Chess(config.position), new Chessboard(el, configobj));
             board0.game.load(board0.board.config.position)
-            config.set(board0.game, board0.board, document.getElementById(elp).getAttribute("position"));
             boards[boards.length] = board0;
             namedboards[elp] = (function (param) { return param; })(boards[0]);
         } else if (elSelectorP == "tagName" || elSelectorP == "") {
@@ -336,7 +335,6 @@ function autochess(elp, elSelectorP, parel, configparam) {
             }
             var board0 = new ChessboardGame(new Chess(config.position), new Chessboard(el, configobj));
             board0.game.load(board0.board.config.position);
-            config.set(board0.game, board0.board, document.getElementById(elp).getAttribute("position"));
             boards[boards.length] = board0;
             namedboards[board0] = boards[boards.length - 1];
         }
