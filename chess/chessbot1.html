@@ -308,6 +308,7 @@
             function calculateForcedMate(possiblemoves, thistime, repeatCount) {
                 var newcheckmate = [];
                 if (repeatCount > 0) {
+                    var newcheckmate = [];
                     possiblemoves.forEach(function (val, idx, arr) {
                         if (val.includes("#")) {
                             newcheckmate.push(val);
@@ -403,6 +404,10 @@
             return currentbestmoveidx;
         }
         function getBestMove(game, cbest, repeatCount) {
+            if (repeatCount == 0) {
+                var bestmoveidx = cbest;
+                return bestmoveidx;
+            }
             var possiblemoves = possiblemovesupdate();
             var bestmoveidx = cbest;
             possiblemoves.forEach(function (val, idx, arr) {
@@ -411,9 +416,6 @@
                 bestmoveidx = getBestMove(game, bestmoveidx, repeatCount - 1);
                 game.undo();
             });
-            if (repeatCount == 0) {
-                return bestmoveidx;
-            }
             return bestmoveidx;
         }
         function botMove() {
