@@ -348,5 +348,5 @@ function autochess(elp, elSelectorP, parel, configparam) {
         return false;
     }
 }
-var docChess = { autochess: autochess, ChessboardGame: ChessboardGame, boards: boards, CompleteLoadingBoard: CompleteLoadingBoard, namedboards: namedboards, Chess: Chess, Chessboard: Chessboard, config: config, configobj: configobj };
+var docChess = { autochess: autochess, ChessboardGame: ChessboardGame, boards: boards, boardsfunc: function () { return boards; }, CompleteLoadingBoard: CompleteLoadingBoard, namedboards: namedboards, Chess: Chess, Chessboard: Chessboard, config: config, configobj: configobj };
 export { docChess };
