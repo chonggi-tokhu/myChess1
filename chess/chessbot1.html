@@ -177,10 +177,10 @@
         window.addEventListener("resize", function (eventparam) {
             document.querySelector(':root').style.setProperty("--displaywidth", window.innerHeight / 10 * 0.75 + "px");
         });
-        board = boards[0];
         var boards = docChess.boards;
-        var boardson = [];
         var board = null;
+        var boardson = [];
+        board = boards[0];
         var mycolour = 'w';
         var myturn = 'w';
         function myturnfunc() {
