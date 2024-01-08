@@ -286,7 +286,7 @@ function autochess(elp, elSelectorP, parel, configparam) {
     if (typeof elp == "string" && parel instanceof HTMLElement) {
         if (elSelectorP == "className" || elSelectorP == ".") {
             parel.querySelectorAll("." + elp).forEach(function (el, key, par) {
-                var config = new configparam();
+                var config = configparam;
                 (config.position == "start") ? config.position = `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1` : config.position = config.position;
                 var customconf = configobj;
                 configobj.position = el.getAttribute("position");
@@ -299,7 +299,7 @@ function autochess(elp, elSelectorP, parel, configparam) {
                 namedboards[key] = (function (param) { return param; })(boards[boards.length - 1]);
             });
         } else if (elSelectorP == "id" || elSelectorP == "#") {
-            var config = new configparam();
+            var config = configparam;
             var el = document.getElementById(elp);
             (config.position == "start") ? config.position = `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1` : config.position = config.position;
             configobj.position = el.getAttribute("position");
@@ -313,7 +313,7 @@ function autochess(elp, elSelectorP, parel, configparam) {
             namedboards[elp] = (function (param) { return param; })(boards[0]);
         } else if (elSelectorP == "tagName" || elSelectorP == "") {
             parel.querySelectorAll(elp).forEach(function (el, key, par) {
-                var config = new configparam();
+                var config = configparam;
                 (config.position == "start") ? config.position = `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1` : config.position = config.position;
                 var customconf = configobj;
                 configobj.position = el.getAttribute("position");
@@ -327,7 +327,7 @@ function autochess(elp, elSelectorP, parel, configparam) {
                 namedboards[key] = (function (param) { return param })(boards[boards.length - 1]);
             });
         } else {
-            var config = new configparam();
+            var config = configparam;
             (config.position == "start") ? config.position = `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1` : config.position = config.position;
             var el = document.getElementById(elp);
             configobj.position = el.getAttribute("position");
