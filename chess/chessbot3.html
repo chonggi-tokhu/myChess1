@@ -91,7 +91,7 @@
 
             // illegal move
             if (move === null) return 'snapback'
-
+            if (game.game_over()) return false;
             // make random legal move for black
             window.setTimeout(makeRandomMove, 250)
         }
