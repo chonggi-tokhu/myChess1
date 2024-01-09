@@ -11,7 +11,7 @@
         var children = game.moves({ verbose: true });
         var currmove;
         children.sort(function (a, b) { return 0.5 - Math.random() });
-        if (depth >= 0 || children.length >= 0) {
+        if (depth <= 0 || children.length <= 0) {
             return [null, sum];
         }
         var maxValue = Number.NEGATIVE_INFINITY;
