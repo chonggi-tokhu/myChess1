@@ -15,8 +15,8 @@
         if (depth <= 0 || children.length <= 0) {
             return [null, sum];
         }
-        var maxValue = Number.NEGATIVE_INFINITY;
-        var minValue = Number.POSITIVE_INFINITY;
+        var maxValue = 10000;
+        var minValue = -10000;
         var bestmove;
         for (var i = 0; i < children.length; i++) {
             var val = children[i];
