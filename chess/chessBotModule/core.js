@@ -82,7 +82,7 @@
                 }
                 beta = Math.min(beta, bestmovevalue);
                 if (alpha >= beta) {
-                    return [bestmove, newSum];
+                    return [bestmove, bestmovevalue];
                 }
             }
             return [bestmove, bestmovevalue];
