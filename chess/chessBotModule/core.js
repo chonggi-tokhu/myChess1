@@ -43,7 +43,7 @@
                 }
             }
             if (alpha >= beta) {
-                return;
+                break;
             }
         }
         if (ismaximisingplayer) {
