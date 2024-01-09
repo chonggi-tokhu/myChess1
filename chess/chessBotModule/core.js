@@ -4,8 +4,9 @@
 })(function (win) {
     var thismodule = win['myChessBot'];
     var positioncount = 0;
-    this['positioncount'] = positioncount;
-    this['minimax'] = function (game, depth, alpha, beta, ismaximisingplayer, sum, colour) {
+    var core = {};
+    core['positioncount'] = positioncount;
+    core['minimax'] = function (game, depth, alpha, beta, ismaximisingplayer, sum, colour) {
         positioncount++
         var children = game.moves({ verbose: true });
         var currmove;
@@ -20,7 +21,7 @@
             currmove = val;
             var currmove0 = game.move(currmove);
             var newSum = thismodule.evaluateBoard.evaluateBoard(currmove0, sum, game, colour);
-            var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, !ismaximisingplayer, newSum, color);
+            var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, !ismaximisingplayer, newSum, colour);
             game.undo();
             if (ismaximisingplayer) {
                 if (childValue > maxValue) {
@@ -49,5 +50,5 @@
             return [bestmove, minValue];
         }
     }
-    return this;
+    return core;
 }, globalThis, globalThis['myChessBot']);

@@ -3,6 +3,7 @@
     (typeof myChessBot !== 'undefined') ? (typeof myChessBot.evaluateBoard === 'undefined') ? myChessBot.evaluateBoard = ep(win) : myChessBot.evaluateBoard = myChessBot.evaluateBoard : (function (thisparam) { myChessBot = thisparam })(gth['myChessBot']);
 })(function (win) {
     var windowobj = win;
+    var evaluateBoardmodule = {};
     var weights = { 'p': 100, 'n': 280, 'b': 320, 'r': 479, 'q': 929, 'k': 60000, 'k_e': 60000 };
     var pst_w = {
         'p': [
@@ -123,11 +124,12 @@
         }
         return rtv;
     }
-    this['weights'] = weights;
-    this['pst_w'] = pst_w;
-    this['pst_b'] = pst_b;
-    this['pstOpponent'] = pstOpponent;
-    this['pstSelf'] = pstSelf;
-    this['boardfiles'] = boardfiles;
-    this['evaluateBoard'] = evaluateBoard;
+    evaluateBoardmodule['weights'] = weights;
+    evaluateBoardmodule['pst_w'] = pst_w;
+    evaluateBoardmodule['pst_b'] = pst_b;
+    evaluateBoardmodule['pstOpponent'] = pstOpponent;
+    evaluateBoardmodule['pstSelf'] = pstSelf;
+    evaluateBoardmodule['boardfiles'] = boardfiles;
+    evaluateBoardmodule['evaluateBoard'] = evaluateBoard;
+    return evaluateBoardmodule;
 }, window, globalThis, globalThis['myChessBot']);
