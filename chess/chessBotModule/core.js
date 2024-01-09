@@ -44,7 +44,7 @@
             }
         }*/
         if (ismaximisingplayer) {
-            maxValue = -10000;
+            bestmove = -10000;
             for (var i = 0; i < children.length; i++) {
                 var val = children[i];
                 currmove = val;
@@ -53,8 +53,7 @@
                 console.log(newSum);
                 var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, false, newSum, colour);
                 game.undo();
-                if (childValue > maxValue) {
-                    maxValue = childValue;
+                if (childValue > minimax(game, depth - 1, alpha, beta, true, newSum, colour)[1]) {
                     bestmove = currmove0;
                 }
                 alpha = Math.max(alpha, childValue);
@@ -64,7 +63,7 @@
             }
             return [bestmove, maxValue];
         } else {
-            minValue = 10000;
+            bestmove = 10000;
             for (var i = 0; i < children.length; i++) {
                 var val = children[i];
                 currmove = val;
@@ -73,8 +72,7 @@
                 console.log(newSum);
                 var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, true, newSum, colour);
                 game.undo();
-                if (childValue < minValue) {
-                    minValue = childValue;
+                if (childValue < minimax(game, depth - 1, alpha, beta, true, newSum, colour)[1]) {
                     bestmove = currmove0;
                 }
                 beta = Math.min(beta, childValue);
