@@ -17,7 +17,8 @@
         var maxValue = Number.NEGATIVE_INFINITY;
         var minValue = Number.POSITIVE_INFINITY;
         var bestmove;
-        children.forEach(function (val, arr, idx) {
+        for (var i = 0; i < children.length; i++) {
+            var val = children[i];
             currmove = val;
             var currmove0 = game.move(currmove);
             var newSum = thismodule.evaluateBoard.evaluateBoard(currmove0, sum, game, colour);
@@ -43,7 +44,7 @@
             if (alpha >= beta) {
                 return;
             }
-        });
+        }
         if (ismaximisingplayer) {
             return [bestmove, maxValue];
         } else {
