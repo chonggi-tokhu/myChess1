@@ -46,7 +46,7 @@
             }
         }*/
         if (ismaximisingplayer) {
-            bestmovevalue = -9999;
+            bestmovevalue = -100;
             for (var i = 0; i < children.length; i++) {
                 var val = children[i];
                 currmove = val;
@@ -65,7 +65,7 @@
             }
             return [bestmove, bestmovevalue];
         } else {
-            bestmovevalue = 9999;
+            bestmovevalue = 100;
             for (var i = 0; i < children.length; i++) {
                 var val = children[i];
                 currmove = val;
