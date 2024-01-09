@@ -13,7 +13,7 @@
 
         if (typeof randomly == "number") children.sort(function (a, b) { return a + randomly - b });
         if (depth <= 0 || children.length <= 0) {
-            return [-thismodule.evaluateBoard.evaluateBoard(game.board()), sum];
+            return [null, -thismodule.evaluateBoard.evaluateBoard(game.board())];
         }
         var maxValue = -10000;
         var minValue = 10000;
@@ -72,7 +72,7 @@
                 var val = children[i];
                 currmove = val;
                 var currmove0 = game.move(currmove);
-                var newSum = minimax(game, depth - 1, alpha, beta, !ismaximisingplayer, newSum, colour)[1];
+                var newSum = minimax(game, depth - 1, alpha, beta, ismaximisingplayer, newSum, colour)[1];
                 console.log(newSum);
                 var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, !ismaximisingplayer, newSum, colour);
                 game.undo();
