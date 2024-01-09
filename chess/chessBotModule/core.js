@@ -17,7 +17,7 @@
         }
         var maxValue = -10000;
         var minValue = 10000;
-        var bestmove;
+        var bestmove;/*
         for (var i = 0; i < children.length; i++) {
             var val = children[i];
             currmove = val;
@@ -31,25 +31,58 @@
                     maxValue = childValue;
                     bestmove = currmove0;
                 }
-                if (childValue > alpha) {
-                    alpha = childValue;
-                }
+                alpha = Math.max(alpha, childValue);
             } else {
                 if (childValue < minValue) {
                     minValue = childValue;
                     bestmove = currmove0;
                 }
-                if (childValue < beta) {
-                    beta = childValue;
-                }
+                beta = Math.min(beta, childValue);
             }
             if (alpha >= beta) {
-                break;
+                return [bestmove, maxValue];
             }
-        }
+        }*/
         if (ismaximisingplayer) {
+            maxValue = -10000;
+            for (var i = 0; i < children.length; i++) {
+                var val = children[i];
+                currmove = val;
+                var currmove0 = game.move(currmove);
+                var newSum = thismodule.evaluateBoard.evaluateBoard(currmove0, sum, game, colour);
+                console.log(newSum);
+                var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, false, newSum, colour);
+                game.undo();
+                if (childValue > maxValue) {
+                    maxValue = childValue;
+                    bestmove = currmove0;
+                }
+                alpha = Math.max(alpha, childValue);
+                if (alpha >= beta) {
+                    return [bestmove, maxValue];
+                }
+            }
             return [bestmove, maxValue];
         } else {
+            minValue = 10000;
+            for (var i = 0; i < children.length; i++) {
+                var val = children[i];
+                currmove = val;
+                var currmove0 = game.move(currmove);
+                var newSum = thismodule.evaluateBoard.evaluateBoard(currmove0, sum, game, colour);
+                console.log(newSum);
+                var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, true, newSum, colour);
+                game.undo();
+                if (childValue < minValue) {
+                    minValue = childValue;
+                    bestmove = currmove0;
+                }
+                beta = Math.min(beta, childValue);
+
+                if (alpha >= beta) {
+                    return [bestmove, minValue];
+                }
+            }
             return [bestmove, minValue];
         }
     }
