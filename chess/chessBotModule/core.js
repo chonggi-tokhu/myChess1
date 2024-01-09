@@ -52,13 +52,11 @@
                 currmove = val;
                 var currmove0 = game.move(currmove);
                 var newSum = minimax(game, depth - 1, alpha, beta, !ismaximisingplayer, newSum, colour)[1];
-                console.log(newSum);
                 var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, !ismaximisingplayer, newSum, colour);
                 game.undo();
                 if (bestmovevalue <= childValue) {
                     bestmovevalue = childValue;
                     bestmove = currmove0;
-                    console.log(bestmove);
                 }
                 alpha = Math.max(alpha, newSum);
                 if (alpha >= beta) {
@@ -73,7 +71,6 @@
                 currmove = val;
                 var currmove0 = game.move(currmove);
                 var newSum = minimax(game, depth - 1, alpha, beta, ismaximisingplayer, newSum, colour)[1];
-                console.log(newSum);
                 var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, !ismaximisingplayer, newSum, colour);
                 game.undo();
                 if (bestmovevalue >= childValue) {
