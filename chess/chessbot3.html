@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mychess</title>
-    <link rel="stylesheet" href="./chessboardjs-1.0.0/css/chessboardCGR.css">
+    <link rel="stylesheet" href="./chessboardjs-1.0.0/css/chessboard-1.0.0.min.css">
     <style>
         :root {
             --displaywidth: 100px;
@@ -100,9 +100,18 @@
         function onSnapEnd() {
             board.position(game.fen())
         }
+        function pieceTheme(piece) {
+            // wikipedia theme for white pieces
+            if (piece.search(/w/) !== -1) {
+                return 'img/chesspieces/wikipedia/' + piece + '.png'
+            }
 
+            // alpha theme for black pieces
+            return 'img/chesspieces/alpha/' + piece + '.png'
+        }
         var config = {
             draggable: true,
+            pieceTheme: pieceTheme,
             position: 'start',
             onDragStart: onDragStart,
             onDrop: onDrop,
