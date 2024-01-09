@@ -76,7 +76,7 @@
         }
 
         function makeRandomMove() {
-            var bestMove = myChessBot.core.minimax(game, 4, -9999, 9999, true, 0, 'b')[0].san;
+            var bestMove = myChessBot.core.minimax(game, 3, -999, 999, true, 0, 'b')[0].san;
             game.move(bestMove);
             board.position(game.fen())
         }
