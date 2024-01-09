@@ -17,7 +17,8 @@
         }
         var maxValue = -10000;
         var minValue = 10000;
-        var bestmove;/*
+        var bestmove;
+        var childValue = -9999;/*
         for (var i = 0; i < children.length; i++) {
             var val = children[i];
             currmove = val;
@@ -44,7 +45,7 @@
             }
         }*/
         if (ismaximisingplayer) {
-            bestmove = -10000;
+            childValue = -10000;
             for (var i = 0; i < children.length; i++) {
                 var val = children[i];
                 currmove = val;
@@ -58,12 +59,12 @@
                 }
                 alpha = Math.max(alpha, childValue);
                 if (alpha >= beta) {
-                    return [bestmove, maxValue];
+                    return [bestmove, childValue];
                 }
             }
-            return [bestmove, maxValue];
+            return [bestmove, childValue];
         } else {
-            bestmove = 10000;
+            childValue = 10000;
             for (var i = 0; i < children.length; i++) {
                 var val = children[i];
                 currmove = val;
@@ -76,12 +77,11 @@
                     bestmove = currmove0;
                 }
                 beta = Math.min(beta, childValue);
-
                 if (alpha >= beta) {
-                    return [bestmove, minValue];
+                    return [bestmove, childValue];
                 }
             }
-            return [bestmove, minValue];
+            return [bestmove, childValue];
         }
     }
     win['minimax'] = minimax;
