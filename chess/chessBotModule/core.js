@@ -55,6 +55,7 @@
                 var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, false, newSum, colour);
                 game.undo();
                 if (childValue >= minimax(game, depth - 1, alpha, beta, true, newSum, colour)[1]) {
+                    childValue = minimax(game, depth - 1, alpha, beta, true, newSum, colour)[1];
                     bestmove = currmove0;
                 }
                 alpha = Math.max(alpha, childValue);
@@ -74,6 +75,7 @@
                 var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, true, newSum, colour);
                 game.undo();
                 if (childValue <= minimax(game, depth - 1, alpha, beta, true, newSum, colour)[1]) {
+                    childValue = minimax(game, depth - 1, alpha, beta, true, newSum, colour)[1];
                     bestmove = currmove0;
                 }
                 beta = Math.min(beta, childValue);
