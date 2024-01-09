@@ -18,7 +18,7 @@
         var maxValue = -10000;
         var minValue = 10000;
         var bestmove;
-        var childValue = -9999;/*
+        var childValue0 = sum;/*
         for (var i = 0; i < children.length; i++) {
             var val = children[i];
             currmove = val;
@@ -45,7 +45,6 @@
             }
         }*/
         if (ismaximisingplayer) {
-            childValue = -children.length;
             for (var i = 0; i < children.length; i++) {
                 var val = children[i];
                 currmove = val;
@@ -58,14 +57,13 @@
                     childValue = minimax(game, depth - 1, alpha, beta, true, newSum, colour)[1];
                     bestmove = currmove0;
                 }
-                alpha = Math.max(alpha, childValue);
+                alpha = Math.max(alpha, childValue0);
                 if (alpha >= beta) {
                     return [bestmove, childValue];
                 }
             }
             return [bestmove, childValue];
         } else {
-            childValue = children.length;
             for (var i = 0; i < children.length; i++) {
                 var val = children[i];
                 currmove = val;
@@ -78,7 +76,7 @@
                     childValue = minimax(game, depth - 1, alpha, beta, true, newSum, colour)[1];
                     bestmove = currmove0;
                 }
-                beta = Math.min(beta, childValue);
+                beta = Math.min(beta, childValue0);
                 if (alpha >= beta) {
                     return [bestmove, childValue];
                 }
