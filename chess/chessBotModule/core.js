@@ -17,16 +17,12 @@
         var maxValue = Number.NEGATIVE_INFINITY;
         var minValue = Number.POSITIVE_INFINITY;
         var bestmove;
-        var minimaxf = minimax;
-        if (typeof minimaxf !== 'function') {
-            minimaxf = core.minimax;
-        }
         for (var i = 0; i < children.length; i++) {
             var val = children[i];
             currmove = val;
             var currmove0 = game.move(currmove);
             var newSum = thismodule.evaluateBoard.evaluateBoard(currmove0, sum, game, colour);
-            var [childBestMove, childValue] = minimaxf(game, depth - 1, alpha, beta, !ismaximisingplayer, newSum, colour);
+            var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, !ismaximisingplayer, newSum, colour);
             game.undo();
             if (ismaximisingplayer) {
                 if (childValue > maxValue) {
@@ -55,6 +51,7 @@
             return [bestmove, minValue];
         }
     }
+    win['minimax'] = minimax;
     core['minimax'] = minimax;
     return core;
 }, globalThis, globalThis['myChessBot']);
