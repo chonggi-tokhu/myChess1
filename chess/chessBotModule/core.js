@@ -6,11 +6,12 @@
     var positioncount = 0;
     var core = {};
     core['positioncount'] = positioncount;
-    function minimax(game, depth, alpha, beta, ismaximisingplayer, sum, colour) {
+    function minimax(game, depth, alpha, beta, ismaximisingplayer, sum, colour, randomly) {
         positioncount++
         var children = game.moves({ verbose: true });
         var currmove;
-        children.sort(function (a, b) { return 0.5 - Math.random() });
+
+        if (typeof randomly == "number") children.sort(function (a, b) { return a + randomly - b });
         if (depth <= 0 || children.length <= 0) {
             return [null, sum];
         }
