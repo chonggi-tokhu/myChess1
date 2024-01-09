@@ -18,6 +18,7 @@
         var maxValue = -10000;
         var minValue = 10000;
         var bestmove;
+        var bestmovevalue = -9999;
         var childValue0 = sum;/*
         for (var i = 0; i < children.length; i++) {
             var val = children[i];
@@ -45,6 +46,7 @@
             }
         }*/
         if (ismaximisingplayer) {
+            bestmovevalue = -9999;
             for (var i = 0; i < children.length; i++) {
                 var val = children[i];
                 currmove = val;
@@ -53,18 +55,19 @@
                 console.log(newSum);
                 var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, false, newSum, colour);
                 game.undo();
-                if (childValue >= minimax(game, depth - 1, alpha, beta, false, newSum, colour)[1]) {
-                    childValue = minimax(game, depth - 1, alpha, beta, false, newSum, colour)[1];
+                if (bestmovevalue <= childValue) {
+                    bestmovevalue = childValue;
                     bestmove = currmove0;
                     console.log(bestmove);
                 }
-                alpha = Math.max(alpha, childValue0);
+                alpha = Math.max(alpha, newSum);
                 if (alpha >= beta) {
-                    return [bestmove, childValue];
+                    return [bestmove, bestmovevalue];
                 }
             }
-            return [bestmove, childValue];
+            return [bestmove, bestmovevalue];
         } else {
+            bestmovevalue = 9999;
             for (var i = 0; i < children.length; i++) {
                 var val = children[i];
                 currmove = val;
@@ -73,16 +76,16 @@
                 console.log(newSum);
                 var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, true, newSum, colour);
                 game.undo();
-                if (childValue <= minimax(game, depth - 1, alpha, beta, true, newSum, colour)[1]) {
-                    childValue = minimax(game, depth - 1, alpha, beta, true, newSum, colour)[1];
+                if (bestmovevalue >= childValue) {
+                    bestmovevalue = childValue;
                     bestmove = currmove0;
                 }
-                beta = Math.min(beta, childValue0);
+                beta = Math.min(beta, bestmovevalue);
                 if (alpha >= beta) {
-                    return [bestmove, childValue];
+                    return [bestmove, newSum];
                 }
             }
-            return [bestmove, childValue];
+            return [bestmove, bestmovevalue];
         }
     }
     win['minimax'] = minimax;
