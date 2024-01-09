@@ -416,6 +416,7 @@ var Chessboard = (function (func, win) {
                         }
                     }
                 });
+                console.log(this.piecetomoveautomatically);
                 if (this.piecetomoveautomatically.to != null && this.piecetomoveautomatically.from != null && this.piecetomoveautomatically.pieceCode != null) {
                     var piecesqEltomove = this.board.getElementsByAttrValue("data-square", this.piecetomoveautomatically.to);
                     var oldpiecesqEltomove = this.board.getElementsByAttrValue("data-square", this.piecetomoveautomatically.from);
