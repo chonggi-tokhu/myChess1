@@ -22,7 +22,7 @@
             currmove = val;
             var currmove0 = game.move(currmove);
             var newSum = thismodule.evaluateBoard.evaluateBoard(currmove0, sum, game, colour);
-            var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, !ismaximisingplayer, newSum, colour);
+            var [childBestMove, childValue] = win['minimaxf'](game, depth - 1, alpha, beta, !ismaximisingplayer, newSum, colour);
             game.undo();
             if (ismaximisingplayer) {
                 if (childValue > maxValue) {
@@ -52,6 +52,9 @@
         }
     }
     win['minimax'] = minimax;
+    win['minimaxf'] = function (game, depth, alpha, beta, ismaximisingplayer, sum, colour) {
+        return win['minimax'](game, depth, alpha, beta, ismaximisingplayer, sum, colour)
+    }
     core['minimax'] = minimax;
     return core;
 }, globalThis, globalThis['myChessBot']);
