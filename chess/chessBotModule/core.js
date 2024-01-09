@@ -56,6 +56,7 @@
                 if (childValue >= minimax(game, depth - 1, alpha, beta, true, newSum, colour)[1]) {
                     childValue = minimax(game, depth - 1, alpha, beta, true, newSum, colour)[1];
                     bestmove = currmove0;
+                    console.log(bestmove);
                 }
                 alpha = Math.max(alpha, childValue0);
                 if (alpha >= beta) {
