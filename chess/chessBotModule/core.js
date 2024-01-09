@@ -18,7 +18,7 @@
         var maxValue = -10000;
         var minValue = 10000;
         var bestmove;
-        var bestmovevalue = -9999;
+        var bestmovevalue = sum;
         var childValue0 = sum;/*
         for (var i = 0; i < children.length; i++) {
             var val = children[i];
@@ -53,7 +53,7 @@
                 var currmove0 = game.move(currmove);
                 var newSum = thismodule.evaluateBoard.evaluateBoard(currmove0, sum, game, colour);
                 console.log(newSum);
-                var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, false, newSum, colour);
+                var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, !ismaximisingplayer, newSum, colour);
                 game.undo();
                 if (bestmovevalue <= childValue) {
                     bestmovevalue = childValue;
@@ -74,7 +74,7 @@
                 var currmove0 = game.move(currmove);
                 var newSum = thismodule.evaluateBoard.evaluateBoard(currmove0, sum, game, colour);
                 console.log(newSum);
-                var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, true, newSum, colour);
+                var [childBestMove, childValue] = minimax(game, depth - 1, alpha, beta, !ismaximisingplayer, newSum, colour);
                 game.undo();
                 if (bestmovevalue >= childValue) {
                     bestmovevalue = childValue;
