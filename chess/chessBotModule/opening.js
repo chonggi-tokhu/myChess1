@@ -248,6 +248,7 @@
             var possiblemoves = game.moves();
             var rtv = [];
             possiblemoves.forEach(function (val, idx, arr) {
+                console.log(val);
                 if (val.piece == piece && val.color == colour) {
                     rtv.push(val);
                 }
