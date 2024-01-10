@@ -12,10 +12,12 @@
                 if (val.name == opname) {
                     rtv.opening = val;
                     rtv.index = val.idx;
+                    return rtv;
                 }
                 if (val.otherNames.includes(opname)) {
                     rtv.opening = val;
                     rtv.index = val.idx;
+                    return rtv;
                 }
             });
             return rtv;
@@ -26,6 +28,7 @@
                 if (val.idx == idxnumber) {
                     rtv.opening = val;
                     rtv.index = val.idx;
+                    return rtv;
                 }
             });
             return rtv;
