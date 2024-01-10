@@ -248,9 +248,10 @@
             var possiblemoves = game.moves();
             var rtv = [];
             possiblemoves.forEach(function (val, idx, arr) {
-                console.log(val);
-                if (val.piece == piece && val.color == colour) {
-                    rtv.push(val);
+                var val0 = game.move(val);
+                game.undo();
+                if (val0.piece == piece && val0.color == colour) {
+                    rtv.push(val0);
                 }
             });
             return rtv;
