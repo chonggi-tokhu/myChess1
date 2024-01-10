@@ -221,7 +221,7 @@
         var myThemeVal = function () { return $themeChange.val() };
         var $pieceThemeChange = $("#theme_piece")
         var myPieceThemeVal = function () { return $pieceThemeChange.val() };
-        $pieceThemeChange.on("change", function (ev) {
+        $themeChange.on("change", function (ev) {
             $("#myboard .white-1e1d7").css("background", Themes[myThemeVal()]['w']['background']);
             $("#myboard .black-3c85d").css("background", Themes[myThemeVal()]['b']['background']);
             $("#myboard .white-1e1d7").css("color", Themes[myThemeVal()]['w']['color']);
