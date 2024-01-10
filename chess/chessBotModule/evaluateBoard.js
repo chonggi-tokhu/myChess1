@@ -1,8 +1,9 @@
-(function (ep, win, gth, module) {
+(function (ep, gth, module) {
     myChessBot = module;
-    (typeof myChessBot !== 'undefined') ? (typeof myChessBot.evaluateBoard === 'undefined') ? myChessBot.evaluateBoard = ep(win) : myChessBot.evaluateBoard = myChessBot.evaluateBoard : (function (thisparam) { myChessBot = thisparam })(gth['myChessBot']);
+    (typeof myChessBot !== 'undefined') ? (typeof myChessBot.evaluateBoard === 'undefined') ? myChessBot.evaluateBoard = ep(gth) : myChessBot.evaluateBoard = myChessBot.evaluateBoard : (function (thisparam) { myChessBot = thisparam })(gth['myChessBot']);
 })(function (win) {
     var windowobj = win;
+    var thismodule = windowobj['myChessBot'];
     var evaluateBoardmodule = {};
     /*var weights = { 'p': 100, 'n': 280, 'b': 320, 'r': 479, 'q': 929, 'k': 60000, 'k_e': 60000 };
     var pst_w = {
@@ -130,12 +131,15 @@
     evaluateBoardmodule['pstOpponent'] = pstOpponent;
     evaluateBoardmodule['pstSelf'] = pstSelf;
     evaluateBoardmodule['boardfiles'] = boardfiles;*/
-    function evaluateBoard(board) {
+    function evaluateBoard(board, game, colour, isopening) {
         var totalEvaluation = 0;
         for (var i = 0; i < 8; i++) {
             for (var j = 0; j < 8; j++) {
                 totalEvaluation = totalEvaluation + getPieceValue(board[i][j], i, j);
             }
+        }
+        if (isopening) {
+            totalEvaluation = myChessBot.evaluateBoard.opening.calculate(board, game, totalEvaluation, colour);
         }
         return totalEvaluation;
     }
@@ -242,4 +246,4 @@
     }
     evaluateBoardmodule['evaluateBoard'] = evaluateBoard;
     return evaluateBoardmodule;
-}, window, globalThis, globalThis['myChessBot']);
+}, globalThis, globalThis['myChessBot']);

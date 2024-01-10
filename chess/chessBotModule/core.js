@@ -8,12 +8,24 @@
     core['positioncount'] = positioncount;
     function minimax(game, depth, alpha, beta, ismaximisingplayer, sum, colour, randomly) {
         positioncount++
+        var isopening = (function () {
+            var rtv = false; var number0 = 0; game.board().forEach(function (val, idx, arr) {
+                if (val) {
+                    number0++;
+                }
+            });
+
+            if (number0 > 15) {
+                rtv = true;
+            }
+            return rtv;
+        })()
         var children = game.moves({ verbose: true });
         var currmove;
         var colourvalue = (colour == 'w') ? 1 : -1;
         if (typeof randomly == "number") children.sort(function (a, b) { return a + randomly - b });
         if (depth <= 0 || children.length <= 0) {
-            return [null, colourvalue * thismodule.evaluateBoard.evaluateBoard(game.board())];
+            return [null, colourvalue * thismodule.evaluateBoard.evaluateBoard(game.board(), game, colour, isopening)];
         }
         var maxValue = -10000;
         var minValue = 10000;

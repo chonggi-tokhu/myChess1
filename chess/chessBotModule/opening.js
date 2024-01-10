@@ -97,7 +97,180 @@
             { name: `London System`, move: ['d4', 'd5', 'Nf3', 'Nf6', 'Bf4'], idx: 60, fen: `rnbqkb1r/ppp1pppp/5n2/3p4/3P1B2/5N2/PPP1PPPP/RN1QKB1R b KQkq - 3 3`, otherNames: [`original London`] }
         ]
     };
+    var openingBasics = {
+        controlCenter: {
+            w: {
+                pawn: {
+                    'e5': 100,
+                    'd5': 100,
+                    'f5': 95,
+                    'c5': 95,
+                    'b5': 85,
+                    'g5': 85,
+                    'a5': 80,
+                    'h5': 80,
+                    'b4': 90,
+                    'g4': 95, // 어찌보면 g4가 매우중요. 킹사이드캐슬링이 주로 일어나고 킹이 캐슬링 안해도 있는쪽이니까 백입장에서 퀸의 핀까지 걸릴수 있는 g4는...
+                    'e6': 90,
+                    'd6': 90,
+                },
+                bishop: {
+                    'g5': 90,
+                    'b5': 90,
+                },
+                knight: {
+                    /*훌륭한 나이트 아웃포스트를 계산*/
+                    pos: {
+                        'f5': 85,
+                        'f3': 90,
+                        'c3': 95,
+                    },
+                    //이쪽은 지금 나이트가 있는 위치 말고 나이트가 컨트롤할수 있는 칸들
+                    'e4': 95,
+                    'd4': 90,
+                    'e5': 90,
+                },
+                king: {
+                    //캐슬링과 안전!!!
+                    'O-O': 90,
+                    'O-O-O': 85,
+                },
+                queen: {
+                    'd1': 90,
+                    /* 퀸은 초반에는 제자리에 있어야 안전. */
+                },
+                rook: {
+                    'e1': 85,
+                    'e2': 90,
+                    'e3': 90,
+                    'e4': 95,
+                    'e5': 95,
+                    'e6': 90,
+                    'e7': 90,
+                    'e8': 95,
+                    'd1': 85,
+                    'd2': 90,
+                    'd3': 90,
+                    'd4': 95,
+                    'd5': 95,
+                    'd6': 90,
+                    'd7': 90,
+                    'd8': 95,
+                },
+            },
+            b: {
+                pawn: {
+                    'e4': 100,
+                    'd4': 100,
+                    'f4': 95,
+                    'c4': 95,
+                    'b4': 85,
+                    'g4': 85,
+                    'a4': 80,
+                    'h4': 80,
+                    'b5': 90,
+                    'g5': 95, // 어찌보면 g4가 매우중요. 킹사이드캐슬링이 주로 일어나고 킹이 캐슬링 안해도 있는쪽이니까 백입장에서 퀸의 핀까지 걸릴수 있는 g4는...
+                    'e3': 90,
+                    'd3': 90,
+                },
+                bishop: {
+                    'g4': 90,
+                    'b4': 90,
+                },
+                knight: {
+                    /*훌륭한 나이트 아웃포스트를 계산*/
+                    pos: {
+                        'f4': 85,
+                        'f6': 90,
+                        'c6': 95,
+                    },
+                    //이쪽은 지금 나이트가 있는 위치 말고 나이트가 컨트롤할수 있는 칸들
+                    'e5': 95,
+                    'd5': 90,
+                    'e5': 90,
+                },
+                king: {
+                    //캐슬링과 안전!!!
+                    'O-O': 90,
+                    'O-O-O': 85,
+                },
+                queen: {
+                    'd8': 90,
+                    /* 퀸은 초반에는 제자리에 있어야 안전. */
+                },
+                rook: {
+                    'e8': 85,
+                    'e7': 90,
+                    'e6': 90,
+                    'e5': 95,
+                    'e4': 95,
+                    'e3': 90,
+                    'e2': 90,
+                    'e1': 95,
+                    'd8': 85,
+                    'd7': 90,
+                    'd6': 90,
+                    'd5': 95,
+                    'd4': 95,
+                    'd3': 90,
+                    'd2': 90,
+                    'd1': 95,
+                },
+            },
+        }
+    }
+    var evaluatePositionOpening = function (position, game, sum, colour) {
+        var myNumber = sum;
+        var notstarted = true;
+        var piecesobj = { r: 'rook', n: 'knight', b: 'bishop', q: 'queen', k: 'king', p: 'pawn' };
+        var piecesarr = ['rook', 'knight', 'bishop', 'queen', 'king', 'pawn'];
+        function piecetopiececode(pname) {
+            if (pname == 'pawn') {
+                return 'p';
+            }
+            if (pname == 'bishop') {
+                return 'b';
+            }
+            if (pname == 'queen') {
+                return 'q';
+            }
+            if (pname == 'king') {
+                return 'k';
+            }
+            if (pname == 'knight') {
+                return 'n';
+            }
+            if (pname == 'rook') {
+                return 'r';
+            }
+        }
+        function pieceMove(game, piece, colour) {
+            var possiblemoves = game.moves();
+            var rtv = [];
+            possiblemoves.forEach(function (val, idx, arr) {
+                if (val.piece == piece && val.color == colour) {
+                    rtv.push(val);
+                }
+            });
+            return rtv;
+        }
+        piecesarr.forEach(function (val, idx, arr) {
+            var pieceCode = piecetopiececode(val);
+            var controlMoves = pieceMove(game, pieceCode, colour);
+            var myNumber0 = 90;
+            controlMoves.forEach(function (val1, idx1, arr1) {
+                var pospieceValue = openingBasics.controlCenter[colour][val][val1.to];
+                if (typeof pospieceValue == "number") {
+                    myNumber = pospieceValue / myNumber0;
+                    myNumber = myNumber * pospieceValue / myNumber0;
+                    notstarted = false;
+                }
+            });
+        });
+        return myNumber;
+    }
     opening['openings'] = openings;
+    opening['calculate'] = evaluatePositionOpening;
     console.log(opening);
     thismodule['evaluateBoard']['opening'] = opening;
     return opening;
