@@ -265,9 +265,11 @@
                     myNumber = myNumber * pospieceValue / myNumber0;
                     notstarted = false;
                 }
+                if (idx1 == arr1.length - 1) {
+                    return myNumber;
+                }
             });
         });
-        return myNumber;
     }
     opening['openings'] = openings;
     opening['calculate'] = evaluatePositionOpening;
