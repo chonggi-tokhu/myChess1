@@ -222,10 +222,10 @@
         var $pieceThemeChange = $("#theme_piece")
         var myPieceThemeVal = function () { return $pieceThemeChange.val() };
         $themeChange.on("change", function (ev) {
-            $("#myboard .white-1e1d7").css("background", Themes[myThemeVal()]['w']['background']);
-            $("#myboard .black-3c85d").css("background", Themes[myThemeVal()]['b']['background']);
-            $("#myboard .white-1e1d7").css("color", Themes[myThemeVal()]['w']['color']);
-            $("#myboard .black-3c85d").css("color", Themes[myThemeVal()]['b']['color']);
+            $("#myBoard .white-1e1d7").css("background", Themes[myThemeVal()]['w']['background']);
+            $("#myBoard .black-3c85d").css("background", Themes[myThemeVal()]['b']['background']);
+            $("#myBoard .white-1e1d7").css("color", Themes[myThemeVal()]['w']['color']);
+            $("#myBoard .black-3c85d").css("color", Themes[myThemeVal()]['b']['color']);
         });
         $myName.on("change", function (ev) {
             if (myColour() == 'b') {
