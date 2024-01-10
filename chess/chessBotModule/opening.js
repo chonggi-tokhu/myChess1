@@ -250,7 +250,6 @@
             possiblemoves.forEach(function (val, idx, arr) {
                 var val0 = game.move(val);
                 game.undo();
-                console.log(val0);
                 if (val0.piece == piece && val0.color == colour) {
                     rtv.push(val0);
                 }
@@ -261,10 +260,8 @@
             var pieceCode = piecetopiececode(val);
             var controlMoves = pieceMove(game, pieceCode, colour);
             var myNumber0 = 90;
-            console.log(controlMoves);
             controlMoves.forEach(function (val1, idx1, arr1) {
                 var pospieceValue = openingBasics.controlCenter[colour][val][val1.to];
-                console.log(pospieceValue);
                 if (typeof pospieceValue == "number") {
                     myNumber = pospieceValue / myNumber0;
                     myNumber = myNumber * pospieceValue / myNumber0;
