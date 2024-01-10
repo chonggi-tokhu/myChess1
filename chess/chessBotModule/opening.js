@@ -95,5 +95,6 @@
         ]
     };
     opening['openings'] = openings;
+    console.log(opening);
     thismodule['evaluateBoard']['opening'] = opening;
 }, globalThis, globalThis['myChessBot']);
