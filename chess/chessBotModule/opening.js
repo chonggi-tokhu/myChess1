@@ -260,10 +260,8 @@
             var pieceCode = piecetopiececode(val);
             var controlMoves = pieceMove(game, pieceCode, colour);
             var myNumber0 = 90;
-            console.log(controlMoves);
             controlMoves.forEach(function (val1, idx1, arr1) {
                 var pospieceValue = openingBasics.controlCenter[colour][val][val1.to];
-                console.log(pospieceValue);
                 if (typeof pospieceValue == "number") {
                     myNumber = pospieceValue / myNumber0;
                     myNumber = myNumber * pospieceValue / myNumber0;
