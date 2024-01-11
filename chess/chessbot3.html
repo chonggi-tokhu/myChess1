@@ -96,6 +96,7 @@
     <script src="./chessBotModule/evaluateBoard.js"></script>
     <script src="./chessBotModule/opening.js"></script>
     <script src="./chessBotModule/core.js"></script>
+    <script src="./chessBotModule/Bot.js"></script>
     <!--<script src="./chessauto.js" id="scriptSRCchess"></script>
     <script>
         if (document.head.getElementsByTagName("chessopt")[0].getAttribute("chessinmodule") == "true") {
@@ -256,7 +257,7 @@
         }
 
         function makeRandomMove() {
-            var bestMove = myChessBot.core.minimax(game, 3, -10, 10, true, 0, 'b')[0].san;
+            var bestMove = myChessBot.minimax(game, 3, -100, 100, true, 'b')[0].san;
             game.move(bestMove);
             board.position(game.fen())
         }
