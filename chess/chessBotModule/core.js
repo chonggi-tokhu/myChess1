@@ -133,8 +133,8 @@
         }
 
         // Find maximum/minimum from list of 'children' (possible moves)
-        var maxValue = -500;
-        var minValue = 500;
+        var maxValue = -800;
+        var minValue = 800;
         var bestMove;
 
         var OME = (function (myparam1) {
