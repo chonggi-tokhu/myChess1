@@ -133,8 +133,8 @@
         }
 
         // Find maximum/minimum from list of 'children' (possible moves)
-        var maxValue = -800;
-        var minValue = 800;
+        var maxValue = Number.NEGATIVE_INFINITY;
+        var minValue = Number.POSITIVE_INFINITY;
         var bestMove;
 
         var OME = (function (myparam1) {
