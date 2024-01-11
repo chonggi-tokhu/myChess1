@@ -273,7 +273,6 @@
     }
     opening['openings'] = openings;
     opening['calculate'] = evaluatePositionOpening;
-    console.log(opening);
     thismodule['evaluateBoard']['opening'] = opening;
     return opening;
 }, globalThis, globalThis['myChessBot']);
