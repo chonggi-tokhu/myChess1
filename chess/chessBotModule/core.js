@@ -86,6 +86,40 @@
             return [bestmove, bestmovevalue];
         }
     }*/
+
+    var boardinsimplearr = function (myparam2) {
+        var rtv = [];
+        for (var i = 0; i < myparam2.length; i++) {
+            for (var i1 = 0; i1 < myparam2[i].length; i1++) {
+                rtv.push[myparam2[i][i1]];
+            }
+        }
+        return rtv;
+    };
+    var squaresandtheirIdx = (function (board) {
+        rtv = [];
+        board.rank.forEach(function (val, idx, arr) {
+            var ranknumber = val;
+            var ranknumberstring = val.toString();
+            board.file.forEach(function (val1, idx1, arr1) {
+                rtv.push(ranknumberstring + val1);
+            });
+        });
+        return rtv;
+    })({ rank: [8, 7, 6, 5, 4, 3, 2, 1], file: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] });
+    var idxesandtheirsquares = (function (board) {
+        rtv = {};
+        var idxnumber = 0;
+        board.rank.forEach(function (val, idx, arr) {
+            var ranknumber = val;
+            var ranknumberstring = val.toString();
+            board.file.forEach(function (val1, idx1, arr1) {
+                rtv[ranknumberstring + val1] = idxnumber;
+                idxnumber++
+            });
+        });
+        return rtv;
+    })({ rank: [8, 7, 6, 5, 4, 3, 2, 1], file: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] });
     function minimax(game, depth, alpha, beta, isMaximizingPlayer, sum, colour) {
         positioncount++;
         var children = game.moves({ verbose: true });
@@ -105,12 +139,34 @@
         var maxValue = Number.NEGATIVE_INFINITY;
         var minValue = Number.POSITIVE_INFINITY;
         var bestMove;
+
+        var OME = (function (myparam1) {
+            var rooknumber = 0;
+            var pawnnumber = 0;
+            myparam1.forEach(function (val, idx, arr) {
+                if (val.type == 'r') {
+                    rooknumber++
+                }
+                if (val.type == 'p') {
+                    pawnnumber++
+                }
+            });
+            if (rooknumber <= 2) {
+                return 'endGame';
+            } else {
+                if (pawnnumber >= 12) {
+                    return 'Opening';
+                } else {
+                    return 'middlegame';
+                }
+            }
+        })(boardinsimplearr(game.board()));
         for (var i = 0; i < children.length; i++) {
             currMove = children[i];
 
             // Note: in our case, the 'children' are simply modified game states
             var currPrettyMove = game.move(currMove);
-            var newSum = thismodule.evaluateBoard.evaluateBoard(game, currPrettyMove, sum, colour);
+            var newSum = thismodule.evaluateBoard.evaluateBoard(game, currPrettyMove, sum, OME, colour);
             var [childBestMove, childValue] = minimax(
                 game,
                 depth - 1,
