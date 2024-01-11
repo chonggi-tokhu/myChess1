@@ -311,7 +311,7 @@
                 } else {
                     by = 'timeout';
                 }
-                if (game.turn == 'w' || game.turn == 'white') {
+                if (game.turn() == 'w' || game.turn() == 'white') {
                     $botSaying.html('white lost by' + by);
                 } else {
                     $botSaying.html('black lost by' + by);
