@@ -193,7 +193,7 @@
             }
 
             // Alpha-beta pruning
-            if (alpha >= beta) {
+            if (alpha >= beta && typeof bestMove != "undefined") {
                 break;
             }
         }
