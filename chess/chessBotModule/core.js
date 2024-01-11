@@ -197,7 +197,7 @@
 
             // Alpha-beta pruning
             if (alpha >= beta && typeof bestMove != "undefined") {
-                break;
+                return [bestMove, (isMaximisingPlayer) ? maxValue : minValue];
             }
         }
 
