@@ -164,6 +164,7 @@
             var currPrettyMove = game.ugly_move(currMove);
             game.undo();
             var newSum = thismodule.evaluateBoard.evaluateBoard(game, currPrettyMove, sum, OME, colour);
+            if (newSum == undefined) { console.log(newSum); }
             var [childBestMove, childValue] = minimax(
                 game,
                 depth - 1,
