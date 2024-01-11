@@ -162,7 +162,7 @@
             currMove = children[i];
 
             // Note: in our case, the 'children' are simply modified game states
-            var currPrettyMove = game.ugly_move(currMove);
+            var currPrettyMove = game.move(currMove);
             console.log(currPrettyMove);
             var newSum = thismodule.evaluateBoard.evaluateBoard(game, currPrettyMove, sum, OME, colour);
             var [childBestMove, childValue] = minimax(
