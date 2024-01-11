@@ -133,8 +133,8 @@
         }
 
         // Find maximum/minimum from list of 'children' (possible moves)
-        var maxValue = -1000;
-        var minValue = 1000;
+        var maxValue = -500;
+        var minValue = 500;
         var bestMove;
 
         var OME = (function (myparam1) {
@@ -176,6 +176,7 @@
             );
 
             if (isMaximisingPlayer) {
+                console.log(childValue);
                 if (childValue > maxValue) {
                     maxValue = childValue;
                     bestMove = currPrettyMove;
