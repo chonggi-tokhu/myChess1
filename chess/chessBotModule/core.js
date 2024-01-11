@@ -162,8 +162,7 @@
             currMove = children[i];
 
             // Note: in our case, the 'children' are simply modified game states
-            var currPrettyMove = game.move(currMove);
-            currPrettyMove.from = currPrettyMove.from;
+            var currPrettyMove = game.ugly_move(currMove);
             console.log(currPrettyMove);
             var newSum = thismodule.evaluateBoard.evaluateBoard(game, currPrettyMove, sum, OME, colour);
             var [childBestMove, childValue] = minimax(
@@ -175,8 +174,6 @@
                 newSum,
                 colour
             );
-
-            game.undo();
 
             if (isMaximizingPlayer) {
                 if (childValue > maxValue) {
