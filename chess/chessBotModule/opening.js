@@ -429,10 +429,10 @@
         }
         return rtv;
     }
+    var piecesobj = { r: 'rook', n: 'knight', b: 'bishop', q: 'queen', k: 'king', p: 'pawn' };
     var evaluatePositionOpening = function (position, game, sum, repeatCount, colour) {
         var myNumber = sum;
         var started = false;
-        var piecesobj = { r: 'rook', n: 'knight', b: 'bishop', q: 'queen', k: 'king', p: 'pawn' };
         var piecesarr = ['rook', 'knight', 'bishop', 'queen', 'king', 'pawn'];
         function piecetopiececode(pname) {
             if (pname == 'pawn') {
@@ -493,7 +493,7 @@
         for (var i = 0; i < position.length; i++) {
             for (var i1 = 0; i1 < position[i].length; i1++) {
                 if (position[i][i1] != null && position[i][i1].type && position[i][i1].color == colour) {
-                    var pospieceValue = openingBasics.currentpos[colour][position[i][i1].type](game)[squaresandtheirIdx[i * 8 + i1]];
+                    var pospieceValue = openingBasics.currentpos[colour][piecesobj[position[i][i1].type]](game)[squaresandtheirIdx[i * 8 + i1]];
                     myNumber = myNumber * pospieceValue / 90;
                 }
             }
