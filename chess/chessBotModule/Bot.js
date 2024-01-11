@@ -1,6 +1,7 @@
 (function (ep, gth, module) {
     myChessBot = module;
     function pushfunc(mod, sth) {
+        console.log(typeof sth);
         if (typeof sth == "object") {
             Object.keys(sth).forEach(function (val, idx, arr) {
                 mod[val] = sth[val];
