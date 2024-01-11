@@ -122,7 +122,7 @@
     })({ rank: [8, 7, 6, 5, 4, 3, 2, 1], file: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] });
     function minimax(game, depth, alpha, beta, isMaximizingPlayer, sum, colour) {
         positioncount++;
-        var children = game.moves();
+        var children = game.ugly_moves();
 
         // Sort moves randomly, so the same move isn't always picked on ties
 
@@ -162,7 +162,7 @@
             currMove = children[i];
 
             // Note: in our case, the 'children' are simply modified game states
-            var currPrettyMove = game.move(currMove);
+            var currPrettyMove = game.ugly_move(currMove);
             console.log(currPrettyMove);
             var newSum = thismodule.evaluateBoard.evaluateBoard(game, currPrettyMove, sum, OME, colour);
             var [childBestMove, childValue] = minimax(
