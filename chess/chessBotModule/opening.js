@@ -3,6 +3,7 @@
     (typeof myChessBot !== 'undefined') ? (typeof myChessBot.evaluateBoard.opening === 'undefined') ? myChessBot.evaluateBoard.opening = ep(gth) : myChessBot.evaluateBoard.opening = myChessBot.evaluateBoard.opening : (function (thisparam) { myChessBot = thisparam })(gth['myChessBot']);
 })(function (win) {
     var thismodule = win['myChessBot'];
+    var piecesthatmovehv = ['q', 'r']
     var opening = {};
     var openings = {
         getOpeningByName(openingname) {
@@ -97,6 +98,41 @@
             { name: `London System`, move: ['d4', 'd5', 'Nf3', 'Nf6', 'Bf4'], idx: 60, fen: `rnbqkb1r/ppp1pppp/5n2/3p4/3P1B2/5N2/PPP1PPPP/RN1QKB1R b KQkq - 3 3`, otherNames: [`original London`] }
         ]
     };
+    var squaresandtheirIdx = (function (board) {
+        rtv = [];
+        board.rank.forEach(function (val, idx, arr) {
+            var ranknumber = val;
+            var ranknumberstring = val.toString();
+            board.file.forEach(function (val1, idx1, arr1) {
+                rtv.push(ranknumberstring + val1);
+            });
+        });
+        return rtv;
+    })({ rank: [8, 7, 6, 5, 4, 3, 2, 1], file: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] });
+    var idxesandtheirsquares = (function (board) {
+        rtv = {};
+        var idxnumber = 0;
+        board.rank.forEach(function (val, idx, arr) {
+            var ranknumber = val;
+            var ranknumberstring = val.toString();
+            board.file.forEach(function (val1, idx1, arr1) {
+                rtv[ranknumberstring + val1] = idxnumber;
+                idxnumber++
+            });
+        });
+        return rtv;
+    })({ rank: [8, 7, 6, 5, 4, 3, 2, 1], file: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] });
+    var boardinsimplearr = function (myparam2) {
+        var rtv = [];
+        for (var i = 0; i < myparam2.length; i++) {
+            for (var i1 = 0; i1 < myparam2[i].length; i1++) {
+                rtv.push[myparam2[i][i1]];
+            }
+        }
+        return rtv;
+    };
+    var squaresaredangerousforwhiteking = ['h4'];
+    var squaresaredangerousforwhiteking = ['h5'];
     var openingBasics = {
         controlCenter: {
             w: {
@@ -136,6 +172,9 @@
                     'O-O-O': 85,
                 },
                 queen: {
+                    pos: {
+                        'd1': 90,
+                    },
                     'd1': 90,
                     /* 퀸은 초반에는 제자리에 있어야 안전. */
                 },
@@ -195,6 +234,9 @@
                     'O-O-O': 85,
                 },
                 queen: {
+                    pos: {
+                        'd8': 90,
+                    },
                     'd8': 90,
                     /* 퀸은 초반에는 제자리에 있어야 안전. */
                 },
@@ -217,11 +259,179 @@
                     'd1': 95,
                 },
             },
+        },
+        currentpos: {
+            w: {
+                pawn(game) {
+                    return {
+                        'e3': 85,
+                        'e4': 90,
+                        'd4': 90,
+                        'd3': 85,
+                        'f4': 80 /*(function (myparam1) {
+                                var rtv=85;
+                                myparam1.forEach(function (val, idx, arr) {
+                                    if (val.colour == 'b') {
+                                        if (val.type == 'q') {
+                                            if (idx == myparam1[idxesandtheirsquares['d8']]) { 
+                                                if (myparam1[idxesandtheirsquares['e7']] == null && myparam1[idxesandtheirsquares['f6']] == null && myparam1[idxesandtheirsquares['g5']] == null) {
+                                                    if (myparam1[idxesandtheirsquares['h3']] == null && myparam1[idxesandtheirsquares['h2']] == null && myparam1[idxesandtheirsquares['h1']] != null && piecesthatmovehv.includes(myparam1[idxesandtheirsquares['h1']].type)) {
+                                                        return 90;
+                                                    }
+                                                }
+                                            } else 
+                                            var queenmoves = pieceMove(game, 'q', 'b');
+                                            queenmoves.forEach(function (val1, idx1, arr1) { 
+                                                var newqueenmove = game.move(val1);
+                                                var newqueensposition = game.board();
+                                                game.undo();
+                                                if (newqueenmove.to) {
+                                                    if (squaresaredangerousforwhiteking.includes(newqueenmove.to)) {
+                                                        if (!(function () { game.move(newqueenmove.san); var rtv = []; var moves2 = game.moves(); game.undo(); moves2.forEach(function (val3, idx3, arr3) { var move3 = game.move(val3); game.undo(); rtv.push(move3.piece); }); return rtv; })().includes('k')) {
+                                                            rtv = 85;
+                                                        } else {
+                                                            rtv = 75;
+                                                            return rtv;
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                                return rtv;
+                            })(boardinsimplearr(game.board))*/,
+                        'c4': 90,
+                    };
+                },
+                knight(game) {
+                    return {
+                        'f3': 93,
+                        'c3': 87,
+                        'h3': 82,
+                        'a3': 82,
+                    }
+                },
+                bishop(game) {
+                    return {
+                        'b5': 93,
+                        'c4': 90,
+                    }
+                },
+                queen(game) {
+                    return {};
+                },
+                king(game) {
+                    return {
+                        'e1': 90,
+                        'g1': 93,
+                    }
+                },
+                rook(game) {
+                    return {
+                        'h1': 90,
+                        'a1': 90,
+                        'b1': 87,
+                        'g1': 87,
+                        'f1': 87,
+                        'c1': 87,
+                        'h3': 75,
+                        'a3': 75,
+                    }
+                },
+            },
+            b: {
+
+                pawn(game) {
+                    return {
+                        'e6': 85,
+                        'e5': 90,
+                        'd5': 90,
+                        'd6': 85,
+                        'f5': 80,
+                        'f6': 70,
+                        'c5': 90,
+                    };
+                },
+                knight(game) {
+                    return {
+                        'f6': 93,
+                        'c6': 87,
+                        'h6': 82,
+                        'a6': 82,
+                    }
+                },
+                bishop(game) {
+                    return {
+                        'b4': 93,
+                        'c5': 90,
+                    }
+                },
+                queen(game) {
+                    return {};
+                },
+                king(game) {
+                    return {
+                        'e8': 90,
+                        'g8': 93,
+                    }
+                },
+                rook(game) {
+                    return {
+                        'h8': 90,
+                        'a8': 90,
+                        'b8': 87,
+                        'g8': 87,
+                        'f8': 87,
+                        'c8': 87,
+                        'h6': 75,
+                        'a6': 75,
+                    }
+                },
+            },
+        },
+        tempos: {
+            0: 90,
+            1: 85,
+            2: 80,
+        },
+    };
+    function piecetopiececode(pname) {
+        if (pname == 'pawn') {
+            return 'p';
+        }
+        if (pname == 'bishop') {
+            return 'b';
+        }
+        if (pname == 'queen') {
+            return 'q';
+        }
+        if (pname == 'king') {
+            return 'k';
+        }
+        if (pname == 'knight') {
+            return 'n';
+        }
+        if (pname == 'rook') {
+            return 'r';
         }
     }
-    var evaluatePositionOpening = function (position, game, sum, colour) {
+    function pieceMove(game, piece, colour) {
+        var possiblemoves = game.moves();
+        var rtv = [];
+        for (var i = 0; i < possiblemoves.length; i++) {
+            var val = possiblemoves[i];
+            var val0 = game.move(val);
+            game.undo();
+            if (val0.piece == piece && val0.color == colour) {
+                rtv.push(val0);
+            }
+        }
+        return rtv;
+    }
+    var evaluatePositionOpening = function (position, game, sum, repeatCount, colour) {
         var myNumber = sum;
-        var notstarted = true;
+        var started = false;
         var piecesobj = { r: 'rook', n: 'knight', b: 'bishop', q: 'queen', k: 'king', p: 'pawn' };
         var piecesarr = ['rook', 'knight', 'bishop', 'queen', 'king', 'pawn'];
         function piecetopiececode(pname) {
@@ -247,32 +457,57 @@
         function pieceMove(game, piece, colour) {
             var possiblemoves = game.moves();
             var rtv = [];
-            possiblemoves.forEach(function (val, idx, arr) {
+            for (var i = 0; i < possiblemoves.length; i++) {
+                var val = possiblemoves[i];
                 var val0 = game.move(val);
                 game.undo();
                 if (val0.piece == piece && val0.color == colour) {
                     rtv.push(val0);
                 }
-            });
+            }
             return rtv;
         }
-        piecesarr.forEach(function (val, idx, arr) {
+        for (var i = 0; i < piecesarr.length; i++) {
+            var val = piecesarr[i];
             var pieceCode = piecetopiececode(val);
             var controlMoves = pieceMove(game, pieceCode, colour);
-            var myNumber0 = 90;
-            controlMoves.forEach(function (val1, idx1, arr1) {
-                var pospieceValue = openingBasics.controlCenter[colour][val][val1.to];
+            for (var i1 = 0; i1 < controlMoves.length; i1++) {
+                var pospieceValue = openingBasics.controlCenter[colour][val][controlMoves[i1].to];
                 if (typeof pospieceValue == "number") {
-                    myNumber = pospieceValue / myNumber0;
-                    myNumber = myNumber * pospieceValue / myNumber0;
-                    notstarted = false;
+                    myNumber = myNumber * pospieceValue / 90;
                 }
-            });
-        });
+
+
+
+
+
+            }
+        }
+        //얘는 진짜 '현재' 포지션 점수만 계산하고 다음수 계산하는거 아니니까 상대의 가장 나쁜 수를 유도할 수는 안두므로, ismaximisingplayer따위 필요 없고,colour도 똑같이 하면 됨
+        return (repeatCount <= 0) ? myNumber : evaluatePositionOpening(position, game, myNumber, repeatCount - 1, colour);
+    }
+    function evaluatePositionOpeningNow(position0, game, sum, repeatCount, colour) {
+        var position = position0;
+        var myNumber = sum;
+        var started = false;
+        for (var i = 0; i < position.length; i++) {
+            for (var i1 = 0; i1 < position[i].length; i1++) {
+                if (position[i][i1] != null && position[i][i1].type && position[i][i1].color == colour) {
+                    var pospieceValue = openingBasics.currentpos[colour][position[i][i1].type](game)[squaresandtheirIdx[i * 8 + i1]];
+                    myNumber = myNumber * pospieceValue / 90;
+                }
+            }
+        }
+        return (repeatCount <= 0) ? myNumber : evaluatePositionOpeningNow(position0, game, myNumber, repeatCount - 1, colour);
+    }
+    function calculate(position, game, sum, repeatCount, colour) {
+        var myNumber = sum;
+        myNumber = evaluatePositionOpeningNow(position, game, myNumber, repeatCount, colour);
+        myNumber = evaluatePositionOpening(position, game, myNumber, repeatCount, colour);
         return myNumber;
     }
     opening['openings'] = openings;
-    opening['calculate'] = evaluatePositionOpening;
+    opening['calculate'] = calculate;
     thismodule['evaluateBoard']['opening'] = opening;
     return opening;
 }, globalThis, globalThis['myChessBot']);

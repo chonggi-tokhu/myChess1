@@ -139,7 +139,7 @@
             }
         }
         if (isopening) {
-            totalEvaluation = myChessBot.evaluateBoard.opening.calculate(board, game, totalEvaluation, colour);
+            totalEvaluation = myChessBot.evaluateBoard.opening.calculate(board, game, totalEvaluation, 3, colour);
         }
         return totalEvaluation;
     }
