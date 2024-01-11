@@ -914,7 +914,6 @@
      * using the material weights and piece square tables.
      */
     function evaluateBoard(game, move, prevSum, OME, colour) {
-        console.log(move);
         if (game.in_checkmate()) {
 
             // Opponent is in checkmate (good for us)
@@ -1010,7 +1009,6 @@
         var possibleMoves = game.moves();
         var boardsimple = boardinsimplearr(game.board());
         for (var i = 0; i < possibleMoves.length; i++) {
-            console.log(possibleMoves[i]);
             var movethatcovers = game.move(possibleMoves[i]);
 
             var coveredSquares = chessPositionData[OME].coveredSquares;
