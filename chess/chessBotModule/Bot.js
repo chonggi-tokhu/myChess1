@@ -4,7 +4,7 @@
         console.log(typeof sth);
         if (typeof sth == "object") {
             Object.keys(sth).forEach(function (val, idx, arr) {
-                console.log(core);
+                console.log(sth);
                 mod[val] = sth[val];
                 console.log(val);
                 console.log(mod[val]);
