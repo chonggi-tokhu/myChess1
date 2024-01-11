@@ -1012,7 +1012,7 @@
         for (var i = 0; i < possibleMoves.length; i++) {
             console.log(possibleMoves[i]);
             var movethatcovers = game.move(possibleMoves[i]);
-            game.undo();
+
             var coveredSquares = chessPositionData[OME].coveredSquares;
             /*for (var i1 = 0; i1 < coveredSquares.pstSelf[colour].length; i1++){
                 var onerow = coveredSquares.pstSelf[colour][i1];
@@ -1026,6 +1026,7 @@
                     prevSum += (valssimple[i1] - 45);
                 }
             }
+            game.undo();
         }
         return prevSum;
     }
