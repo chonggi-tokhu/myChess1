@@ -1007,7 +1007,7 @@
                 prevSum += chessPositionData[OME].pstSelf[move.color][move.piece][to[0]][to[1]];
             }
         }
-        var possibleMoves = game.moves();
+        var possibleMoves = game.ugly_moves();
         var boardsimple = boardinsimplearr(game.board());
         for (var i = 0; i < possibleMoves.length; i++) {
             var movethatcovers = game.ugly_move(possibleMoves);
