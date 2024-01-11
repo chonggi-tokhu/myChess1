@@ -5,6 +5,7 @@
         if (typeof sth == "object") {
             Object.keys(sth).forEach(function (val, idx, arr) {
                 mod[val] = sth[val];
+                console.log(mod[val]);
             });
         }
         console.log(mod);
