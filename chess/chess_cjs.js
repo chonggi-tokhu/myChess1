@@ -1315,7 +1315,17 @@ var Chess = function (fen) {
 
             return output;
         },
-
+        resignbool: false,
+        resign(side) {
+            this.endGame();
+            if (side == 'w' || side == 'white') {
+                this.header('Result', '0-1');
+            } else {
+                this.header('Result', '1-0');
+            }
+            this.resignbool = true;
+            return this;
+        },
         pgn: function (options) {
             /* using the specification from http://www.chessclub.com/help/PGN-spec
              * example for html usage: .pgn({ max_width: 72, newline_char: "<br />" })
