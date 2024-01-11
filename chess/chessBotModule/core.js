@@ -120,7 +120,7 @@
         });
         return rtv;
     })({ rank: [8, 7, 6, 5, 4, 3, 2, 1], file: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] });
-    function minimax(game, depth, alpha, beta, isMaximizingPlayer, sum, colour) {
+    function minimax(game, depth, alpha, beta, isMaximisingPlayer, sum, colour) {
         positioncount++;
         var children = game.ugly_moves();
 
@@ -128,13 +128,13 @@
 
         var currMove;
         // Maximum depth exceeded or node is a terminal node (no children)
-        if (depth === 0 || children.length === 0) {
+        if (depth <= 0 || children.length <= 0) {
             return [null, sum];
         }
 
         // Find maximum/minimum from list of 'children' (possible moves)
-        var maxValue = Number.NEGATIVE_INFINITY;
-        var minValue = Number.POSITIVE_INFINITY;
+        var maxValue = -1000;
+        var minValue = 1000;
         var bestMove;
 
         var OME = (function (myparam1) {
@@ -170,12 +170,12 @@
                 depth - 1,
                 alpha,
                 beta,
-                !isMaximizingPlayer,
+                !isMaximisingPlayer,
                 newSum,
                 colour
             );
 
-            if (isMaximizingPlayer) {
+            if (isMaximisingPlayer) {
                 if (childValue > maxValue) {
                     maxValue = childValue;
                     bestMove = currPrettyMove;
@@ -199,7 +199,7 @@
             }
         }
 
-        if (isMaximizingPlayer) {
+        if (isMaximisingPlayer) {
             return [bestMove, maxValue];
         } else {
             return [bestMove, minValue];
