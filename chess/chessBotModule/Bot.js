@@ -17,5 +17,8 @@
 })(function (win) {
     var core = win['myChessBot'].core;
     console.log(core);
+    if (core.core) {
+        return core.core;
+    }
     return core;
 }, globalThis, globalThis['myChessBot']);
