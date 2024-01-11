@@ -321,7 +321,7 @@
         }
         function makeRandomMove() {
             console.log(myChessBot.minimax(game, depthVal(), Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, true, 100, getopcolour(myColour())));
-            var bestMove = myChessBot.minimax(game, depthVal(), number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, true, 100, getopcolour(myColour()))[0].san;
+            var bestMove = myChessBot.minimax(game, depthVal(), Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, true, 100, getopcolour(myColour()))[0].san;
             game.move(bestMove);
             updateStatus();
         }
