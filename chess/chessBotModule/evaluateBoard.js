@@ -1110,16 +1110,16 @@
         }
         var possibleMoves = game.moves();
         var boardsimple = boardinsimplearr(game.board());
-        for (var i = 0; i < possibleMoves.length; i++) {
+        /*for (var i = 0; i < possibleMoves.length; i++) {
             var movethatcovers = game.move(possibleMoves[i]);
 
             var coveredSquares = chessPositionData[OME].coveredSquares;
-            /*for (var i1 = 0; i1 < coveredSquares.pstSelf[colour].length; i1++){
+            for (var i1 = 0; i1 < coveredSquares.pstSelf[colour].length; i1++){
                 var onerow = coveredSquares.pstSelf[colour][i1];
                 for (var i2 = 0; i2 < onerow.length; i2++){
                     
                 }
-            }*/
+            }
             var valssimple = boardinsimplearr(coveredSquares.pstSelf[colour]);
             for (var i1 = 0; i1 < valssimple.length; i1++) {
                 if (valssimple.to == squaresandtheirIdx[i1]) {
@@ -1127,7 +1127,7 @@
                 }
             }
             game.undo();
-        }
+        }*/
         return prevSum;
     }
 
