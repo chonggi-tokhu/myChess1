@@ -160,7 +160,6 @@
         })(boardinsimplearr(game.board()));
         for (var i = 0; i < children.length; i++) {
             currMove = children[i];
-
             // Note: in our case, the 'children' are simply modified game states
             var currPrettyMove = game.ugly_move(currMove);
             console.log(currPrettyMove);
