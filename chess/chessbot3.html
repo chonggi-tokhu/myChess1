@@ -50,39 +50,50 @@
                     <h3>colour of bot</h3>
                     <select id="botColour">
                         <option value="w">White</option>
-                        <option value="b">Black</option>
+                        <option value="b" selected>Black</option>
                     </select>
                     <br>
                     <textarea id="myName" rows="1" placeholder="your player name"></textarea>
                     <br>
-                    <div style="display: flex;">
-                        <div></div>
-
-                        <h3>depth</h3>
-                        <select id="depth">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
+                    <div class="btn-group">
+                        <button class="btn btn-success" onclick="$('#pgn').html(game.pgn());">get PGN</button>
+                        <button class="btn btn-success" onclick="$('#fen').html(game.fen());">get FEN</button>
                     </div>
                     <div>
+                        <div id="fen"></div>
+                        <div id="pgn"></div>
+                    </div>
 
-                        <h3>board theme</h3>
-                        <select id="theme_board">
-                            <option value="basic" selected>basic</option>
-                            <option value="BnW">Black and White</option>
-                            <option value="grey">grey</option>
-                            <option value="blue">blue</option>
-                            <option value="purple">purple</option>
-                            <option value="brown">brown</option>
-                            <option value="orange">orange</option>
-                            <option value="lightPink">lightPink & lightBlue</option>
-                            <option value="green">green</option>
-                            <option value="gold">gold & silver</option>
-                            <option value="red">red</option>
-                        </select>
+                    <div style="display: flex;">
+                        <div>
+
+                            <h3>depth</h3>
+                            <select id="depth">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+
+                        <div>
+
+                            <h3>board theme</h3>
+                            <select id="theme_board">
+                                <option value="basic" selected>basic</option>
+                                <option value="BnW">Black and White</option>
+                                <option value="grey">grey</option>
+                                <option value="blue">blue</option>
+                                <option value="purple">purple</option>
+                                <option value="brown">brown</option>
+                                <option value="orange">orange</option>
+                                <option value="lightPink">lightPink & lightBlue</option>
+                                <option value="green">green</option>
+                                <option value="gold">gold & silver</option>
+                                <option value="red">red</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
