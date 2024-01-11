@@ -1010,8 +1010,7 @@
         var possibleMoves = game.moves();
         var boardsimple = boardinsimplearr(game.board());
         for (var i = 0; i < possibleMoves.length; i++) {
-            var movethatcovers = game.move(possibleMoves);
-            game.undo();
+            var movethatcovers = game.ugly_move(possibleMoves);
             var coveredSquares = chessPositionData[OME].coveredSquares;
             /*for (var i1 = 0; i1 < coveredSquares.pstSelf[colour].length; i1++){
                 var onerow = coveredSquares.pstSelf[colour][i1];
