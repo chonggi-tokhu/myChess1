@@ -13,7 +13,7 @@
         console.log(mod);
         return mod;
     }
-    (typeof myChessBot !== 'undefined') ? (typeof myChessBot.core === 'undefined') ? pushfunc(myChessBot, ep(gth)) /*myChessBot.core = ep(gth)*/ : pushfunc(myChessBot, myChessBot) : (function (thisparam) { myChessBot = thisparam })(gth['myChessBot']);
+    (typeof myChessBot !== 'undefined') ? pushfunc(myChessBot, ep(gth)) /*myChessBot.core = ep(gth)*/ : pushfunc(myChessBot, myChessBot);
 })(function (win) {
     var core = win['myChessBot'].core;
     console.log(core);

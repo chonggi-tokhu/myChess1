@@ -255,11 +255,13 @@
             // only pick up pieces for White
             if (piece.search(/^b/) !== -1) return false
         }
-
+        var depthVal = function () {
+            return parseInt($("#depth").val());
+        }
         function makeRandomMove() {
-            var bestMove = myChessBot.core.minimax(game, 3, -100, 100, true, 0, 'b')[0].san;
+            var bestMove = myChessBot.core.minimax(game, depthVal(), -1000, 1000, true, 0, myColour())[0].san;
             game.move(bestMove);
-            board.position(game.fen())
+            board.position(game.fen());
         }
 
         function onDrop(source, target) {

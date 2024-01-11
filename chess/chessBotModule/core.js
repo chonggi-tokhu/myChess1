@@ -122,12 +122,9 @@
     })({ rank: [8, 7, 6, 5, 4, 3, 2, 1], file: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] });
     function minimax(game, depth, alpha, beta, isMaximizingPlayer, sum, colour) {
         positioncount++;
-        var children = game.moves({ verbose: true });
+        var children = game.moves();
 
         // Sort moves randomly, so the same move isn't always picked on ties
-        children.sort(function (a, b) {
-            return 0.5 - Math.random();
-        });
 
         var currMove;
         // Maximum depth exceeded or node is a terminal node (no children)
