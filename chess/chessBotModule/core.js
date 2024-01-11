@@ -110,7 +110,7 @@
 
             // Note: in our case, the 'children' are simply modified game states
             var currPrettyMove = game.move(currMove);
-            var newSum = evaluateBoard(game, currPrettyMove, sum, colour);
+            var newSum = thismodule.evaluateBoard.evaluateBoard(game, currPrettyMove, sum, colour);
             var [childBestMove, childValue] = minimax(
                 game,
                 depth - 1,
