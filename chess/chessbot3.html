@@ -247,6 +247,13 @@
             }
         });
         var game = new Chess();
+        function getopcolour(colour) {
+            if (colour == 'w') {
+                return 'b';
+            } else {
+                return 'w';
+            }
+        }
         game.load('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
         function onDragStart(source, piece, position, orientation) {
             // do not pick up pieces if the game is over
@@ -259,7 +266,7 @@
             return parseInt($("#depth").val());
         }
         function makeRandomMove() {
-            var bestMove = myChessBot.core.minimax(game, depthVal(), -1000, 1000, true, 0, myColour())[0].san;
+            var bestMove = myChessBot.core.minimax(game, depthVal(), -1000, 1000, true, 0, getopcolour(myColour()))[0].san;
             game.move(bestMove);
             board.position(game.fen());
         }
