@@ -320,7 +320,7 @@
             board.position(game.fen());
         }
         function makeRandomMove() {
-            console.log(myChessBot.minimax(game, depthVal(), -1000, 1000, true, 0, getopcolour(myColour()))[0].san);
+            console.log(myChessBot.minimax(game, depthVal(), -1000, 1000, true, 0, getopcolour(myColour()))[0]);
             var bestMove = myChessBot.minimax(game, depthVal(), -1000, 1000, true, 0, getopcolour(myColour()))[0].san;
             game.move(bestMove);
             updateStatus();
